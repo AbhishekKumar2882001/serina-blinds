@@ -25,7 +25,11 @@ SECRET_KEY = 'django-insecure-0(30ff^2fm_u3p9s%v3r_211$nhbc6m_9t7tm6^rs19)s@jdf@
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost']
+ALLOWED_HOSTS = [
+    'localhost',
+    '127.0.0.1',
+    'serina-blinds.onrender.com'
+]
 
 
 # Application definition
