@@ -1,0 +1,536 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Contact Us | Serina Blinds - Premium Window Architecture{% endblock %}
+
+{% block extra_css %}
+<!-- Base static asset css link preserved safely -->
+<link rel="stylesheet" href="{% static 'css/contact.css' %}">
+
+<style>
+    /* ==========================================================================
+       CONTACT PAGE - MINIMALIST ARCHITECTURAL DESIGN SYSTEM (TESLA SYNCED SYSTEM)
+       ========================================================================== */
+    
+    /* Clean Luxury Hero Context Matching the Tesla Structural Layout */
+    .contact-hero-section {
+        background: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.96)), 
+                    url('{% static "images/about-hero-bg.jpg" %}') no-repeat center center/cover;
+        min-height: 45vh;
+        display: flex;
+        align-items: center;
+        color: var(--tesla-black);
+        padding: 120px 0 50px;
+        position: relative;
+        text-align: center;
+    }
+
+    /* Geometric Blueprint Mesh Overlay */
+    .contact-hero-section::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background-image: 
+            linear-gradient(rgba(62, 106, 225, 0.02) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(62, 106, 225, 0.02) 1px, transparent 1px);
+        background-size: 40px 40px;
+        mask-image: radial-gradient(circle at center, black, transparent 85%);
+        pointer-events: none;
+    }
+
+    .contact-hero-content {
+        position: relative;
+        z-index: 5;
+        max-width: 750px;
+        margin: 0 auto;
+    }
+
+    .contact-hero-content span {
+        color: var(--tesla-accent);
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        font-size: 12px;
+        display: block;
+        margin-bottom: 12px;
+    }
+
+    .contact-hero-content h1 {
+        font-size: 42px;
+        font-weight: 700;
+        letter-spacing: -0.5px;
+        color: var(--tesla-black);
+        margin-bottom: 16px;
+        line-height: 1.2;
+    }
+
+    .contact-hero-content p {
+        font-size: 16px;
+        color: var(--tesla-grey-muted);
+        line-height: 1.6;
+    }
+
+    /* ==========================================================================
+       CONTACT INFO CARDS (INTEGRATED SYSTEM SURFACE)
+       ========================================================================== */
+    .contact-info {
+        padding: 60px 0 30px;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 24px;
+    }
+
+    .info-card {
+        background: var(--tesla-white);
+        border: 1px solid var(--tesla-border);
+        border-radius: 16px;
+        padding: 40px 30px;
+        text-align: center;
+        transition: var(--tesla-transition);
+    }
+
+    .info-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.03);
+        border-color: rgba(62, 106, 225, 0.25);
+    }
+
+    .info-card .icon-box {
+        width: 52px;
+        height: 52px;
+        background: #f8f9fa;
+        color: var(--tesla-black);
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 18px;
+        margin: 0 auto 20px;
+        border: 1px solid var(--tesla-border);
+        transition: var(--tesla-transition);
+    }
+
+    .info-card:hover .icon-box {
+        background: var(--tesla-accent);
+        color: var(--tesla-white);
+        border-color: var(--tesla-accent);
+    }
+
+    .info-card h3 {
+        font-size: 17px;
+        font-weight: 600;
+        color: var(--tesla-black);
+        margin-bottom: 10px;
+    }
+
+    .info-card p {
+        color: var(--tesla-grey-muted);
+        font-size: 14px;
+        line-height: 1.6;
+        margin: 0;
+    }
+
+    /* ==========================================================================
+       MAIN INTERACTIVE GRID SECTION (FORM + MAP)
+       ========================================================================== */
+    .contact-main-section {
+        padding: 30px 0 80px;
+        background: #fbfbfd;
+    }
+
+    .contact-grid-layout {
+        display: grid;
+        grid-template-columns: 1.1fr 0.9fr;
+        gap: 40px;
+        align-items: stretch;
+    }
+
+    /* Premium Form Wrapper Surface */
+    .form-container-box {
+        background: var(--tesla-white);
+        border: 1px solid var(--tesla-border);
+        border-radius: 20px;
+        padding: 40px;
+    }
+
+    .form-container-box h2 {
+        font-size: 28px;
+        font-weight: 600;
+        color: var(--tesla-black);
+        margin-bottom: 10px;
+        letter-spacing: -0.5px;
+    }
+
+    .form-container-box p {
+        color: var(--tesla-grey-muted);
+        font-size: 14.5px;
+        margin-bottom: 30px;
+        line-height: 1.6;
+    }
+
+    /* Django Notification Container Alert System */
+    .success-alert {
+        background: #f4fbf7;
+        border: 1px solid #d1fae5;
+        color: #1e6631;
+        padding: 14px 18px;
+        border-radius: 10px;
+        font-weight: 600;
+        font-size: 14px;
+        margin-bottom: 24px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .form-grid-inputs {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+        margin-bottom: 16px;
+    }
+
+    .form-control-row {
+        margin-bottom: 16px;
+    }
+
+    .form-control-row input,
+    .form-grid-inputs input,
+    .form-control-row textarea {
+        width: 100%;
+        padding: 14px 18px;
+        border: 1px solid var(--tesla-border);
+        background: #f8f9fa;
+        border-radius: 8px;
+        font-family: inherit;
+        font-size: 14px;
+        color: var(--tesla-black);
+        outline: none;
+        box-sizing: border-box;
+        transition: var(--tesla-transition);
+    }
+
+    .form-control-row input:focus,
+    .form-grid-inputs input:focus,
+    .form-control-row textarea:focus {
+        border-color: var(--tesla-accent);
+        background: var(--tesla-white);
+        box-shadow: 0 0 0 4px rgba(62, 106, 225, 0.05);
+    }
+
+    /* Pure Tesla Monolith Style Form Button */
+    .tesla-form-submit-btn {
+        width: 100%;
+        height: 48px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: var(--tesla-black);
+        color: var(--tesla-white);
+        border: none;
+        cursor: pointer;
+        border-radius: 100px;
+        font-weight: 500;
+        font-size: 14px;
+        transition: var(--tesla-transition);
+    }
+
+    .tesla-form-submit-btn:hover {
+        background: var(--tesla-accent);
+        box-shadow: 0 8px 24px rgba(62, 106, 225, 0.25);
+    }
+
+    /* Map Architecture Frame */
+    .map-frame-wrapper {
+        border-radius: 20px;
+        overflow: hidden;
+        border: 1px solid var(--tesla-border);
+        box-shadow: 0 10px 30px rgba(0,0,0,0.01);
+        height: 100%;
+        min-height: 450px;
+        position: relative;
+    }
+
+    .map-frame-wrapper iframe {
+        width: 100%;
+        height: 100%;
+        border: none;
+        position: absolute;
+        top: 0; left: 0;
+    }
+
+    /* ==========================================================================
+       REGIONAL BRANCHES SECTION
+       ========================================================================== */
+    .branches-section {
+        padding: 80px 0;
+        background: var(--tesla-white);
+        border-top: 1px solid var(--tesla-border);
+    }
+
+    .branch-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 24px;
+        margin-top: 40px;
+    }
+
+    .branch-card {
+        background: #fbfbfd;
+        border: 1px solid var(--tesla-border);
+        border-radius: 16px;
+        padding: 30px;
+        transition: var(--tesla-transition);
+    }
+
+    .branch-card:hover {
+        box-shadow: 0 10px 25px rgba(0,0,0,0.02);
+        transform: translateY(-2px);
+        border-color: rgba(62, 106, 225, 0.15);
+    }
+
+    .branch-card h3 {
+        font-size: 17px;
+        font-weight: 600;
+        color: var(--tesla-black);
+        margin: 0 0 10px 0;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .branch-card h3 i {
+        color: var(--tesla-accent);
+        font-size: 15px;
+    }
+
+    .branch-card p {
+        color: var(--tesla-grey-muted);
+        font-size: 14px;
+        line-height: 1.6;
+        margin: 0;
+    }
+
+    /* ==========================================================================
+       ENGAGEMENT CTA CARD INTERPOLATION
+       ========================================================================== */
+    .about-cta-card {
+        background: var(--tesla-black);
+        border: 1px solid var(--tesla-border-white);
+        color: var(--tesla-white);
+        padding: 60px 40px;
+        border-radius: 20px;
+        text-align: center;
+        margin-bottom: 60px;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .about-cta-card::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background-image: linear-gradient(rgba(62, 106, 225, 0.03) 1px, transparent 1px), 
+                          linear-gradient(90deg, rgba(62, 106, 225, 0.03) 1px, transparent 1px);
+        background-size: 40px 40px;
+        pointer-events: none;
+    }
+
+    .about-cta-card h2 {
+        font-size: 32px;
+        font-weight: 600;
+        color: var(--tesla-white);
+        letter-spacing: -0.5px;
+        margin-bottom: 14px;
+    }
+
+    .about-cta-card p {
+        color: #a2a3a5;
+        font-size: 15px;
+        max-width: 540px;
+        margin: 0 auto 30px;
+        line-height: 1.6;
+    }
+
+    .tesla-cta-btn {
+        width: auto; 
+        padding: 0 36px; 
+        height: 46px;
+        border-radius: 100px; 
+        text-decoration: none; 
+        display: inline-flex; 
+        align-items: center;
+        justify-content: center;
+        background: var(--tesla-white); 
+        color: var(--tesla-black); 
+        border: none; 
+        font-weight: 500;
+        font-size: 14px;
+        transition: var(--tesla-transition);
+    }
+
+    .tesla-cta-btn:hover {
+        background: var(--tesla-accent);
+        color: var(--tesla-white);
+        box-shadow: 0 8px 24px rgba(62, 106, 225, 0.3);
+    }
+
+    /* RESPONSIVE LAYOUT RESPONSES */
+    @media (max-width: 1024px) {
+        .contact-grid-layout { grid-template-columns: 1fr; gap: 32px; }
+        .map-frame-wrapper { min-height: 400px; height: 400px; }
+        .contact-hero-content h1 { font-size: 36px; }
+        .form-container-box { padding: 30px 24px; }
+    }
+    @media (max-width: 576px) {
+        .form-grid-inputs { grid-template-columns: 1fr; gap: 0; }
+        .contact-hero-section { padding: 100px 0 40px; }
+        .about-cta-card h2 { font-size: 24px; }
+        .about-cta-card { padding: 40px 20px; }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+
+    <!-- ARCHITECTURAL HERO SECTION -->
+    <section class="contact-hero-section">
+        <div class="container">
+            <div class="contact-hero-content container-animate">
+                <span>Get In Touch</span>
+                <h1>Contact Serina Blinds</h1>
+                <p>We are here to assist you in designing and optimizing the perfect automated window layout system for your premium residential properties and corporate lounges.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- INFO CARDS MATRIX ROW -->
+    <div class="container">
+        <section class="contact-info container-animate">
+            
+            <div class="info-card">
+                <div class="icon-box"><i class="fa-solid fa-phone"></i></div>
+                <h3>Call Us Directly</h3>
+                <p>+91 9876543210</p>
+                <p style="font-size: 12px; color: var(--tesla-grey-muted); margin-top: 6px;">Mon - Sat (9 AM - 7 PM)</p>
+            </div>
+
+            <div class="info-card">
+                <div class="icon-box"><i class="fa-solid fa-envelope"></i></div>
+                <h3>Email Communications</h3>
+                <p>info@serinablinds.com</p>
+                <p style="margin-top: 4px;">support@serinablinds.com</p>
+            </div>
+
+            <div class="info-card">
+                <div class="icon-box"><i class="fa-solid fa-location-dot"></i></div>
+                <h3>Corporate HQ Office</h3>
+                <p>Khajoori Khas, Main Wazirabad Road,<br>Delhi - 110094, India</p>
+            </div>
+
+        </section>
+    </div>
+
+    <!-- MAIN GRID CONTAINER BLOCK (FORM & MAP INTEGRATED WITH SCROLL ENGINE) -->
+    <section class="contact-main-section">
+        <div class="container">
+            <div class="contact-grid-layout container-animate">
+                
+                <!-- SINGLE CLEAN FORWARD FORM COMPONENT -->
+                <div class="form-container-box">
+                    <h2>Send Us A Message</h2>
+                    <p>Have a custom configuration requirement or ongoing structural queries? Submit the layout criteria below.</p>
+                    
+                    <!-- Django Native Onsite Success Notifications Wrapper -->
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="success-alert">
+                                <i class="fa-solid fa-circle-check" style="font-size: 18px;"></i>
+                                <span>{{ message }}</span>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+
+                    <!-- Fixed Form Post Architecture mapping to unified view layout -->
+                    <form action="{% url 'contact_enquiry' %}" method="POST">
+                        {% csrf_token %}
+                        
+                        <div class="form-grid-inputs">
+                            <input type="text" name="name" placeholder="Your Name" required>
+                            <input type="email" name="email" placeholder="Your Email Address" required>
+                        </div>
+
+                        <div class="form-grid-inputs">
+                            <input type="tel" name="phone" placeholder="Mobile Number" required>
+                            <input type="text" name="subject" placeholder="Subject Target Requirement">
+                        </div>
+
+                        <div class="form-control-row">
+                            <textarea name="message" rows="5" placeholder="Write your explicit setup architecture or blueprint parameters here..." required></textarea>
+                        </div>
+
+                        <button type="submit" class="tesla-form-submit-btn">
+                            Send Message Securely <i class="fa-solid fa-paper-plane" style="margin-left: 8px; font-size: 12px;"></i>
+                        </button>
+                    </form>
+                </div>
+
+                <!-- LIVE MAP COMPONENT REFRACTED -->
+                <div class="map-frame-wrapper">
+                    <!-- Standard authentic Delhi Geo-matrix embed coordinates injected securely -->
+                    <iframe 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3498.463653139369!2d77.2625211!3d28.7056972!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390cfc3bda5c04b9%3A0x6b14613ea2a3f7f!2sKhajuri%20Khas%2C%20Delhi%2C%20110094!5e0!3m2!1sen!2sin!4v1710000000000!5m2!1sen!2sin" 
+                        allowfullscreen="" 
+                        loading="lazy">
+                    </iframe>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- BRANCHES REGIONAL COVERAGE LAYOUT -->
+    <section class="branches-section">
+        <div class="container">
+            <div class="section-title container-animate" style="text-align: center; max-width: 600px; margin: 0 auto;">
+                <span style="color: var(--tesla-accent); font-weight: 600; text-transform: uppercase; letter-spacing: 2px; font-size: 12px; display: block; margin-bottom: 10px;">Regional Network</span>
+                <h2 style="font-size: 32px; font-weight: 600; color: var(--tesla-black);">Visit Our Experience Centers</h2>
+            </div>
+
+            <div class="branch-grid container-animate">
+                
+                <div class="branch-card">
+                    <h3><i class="fa-solid fa-building-flag"></i> Delhi NCR Center</h3>
+                    <p>Main Wazirabad Road, Near Khajoori Chowk, Khajoori Khas, Delhi - 110094</p>
+                </div>
+
+                <div class="branch-card">
+                    <h3><i class="fa-solid fa-building"></i> Gurgaon Hub</h3>
+                    <p>Golf Course Road, Near Sector 54 Metro, Gurgaon, Haryana - 122003</p>
+                </div>
+
+                <div class="branch-card">
+                    <h3><i class="fa-solid fa-building"></i> Noida Gallery</h3>
+                    <p>Sector 62, Near Electronic City Metro Station, Noida, Uttar Pradesh - 201301</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- INTEGRATED PREMIUM ACTION AREA -->
+    <section style="padding-top: 20px; background: #fbfbfd;">
+        <div class="container">
+            <div class="about-cta-card container-animate">
+                <div>
+                    <h2>Looking For Premium Luxury Blinds?</h2>
+                    <p>Configure advanced shading mechanics with laser precision inside your space parameters.</p>
+                    <a href="{% url 'get_quote' %}" class="tesla-cta-btn">
+                        Start Your Project <i class="fa-solid fa-chevron-right" style="margin-left: 8px; font-size: 11px;"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

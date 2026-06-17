@@ -1,0 +1,1149 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}SERINA Blinds | Premium Window Blinds Solutions{% endblock %}
+
+{% block extra_css %}
+<style>
+    /* ==========================================================================
+       SERINA BLINDS - TESLA MINIMALIST PREMIUM DESIGN SYSTEM (OPTIMIZED)
+       ========================================================================== */
+
+    :root {
+        --tesla-black: #171a20;
+        --tesla-white: #ffffff;
+        --tesla-grey-dark: #393c41;
+        --tesla-grey-light: #f4f4f4;
+        --tesla-grey-muted: #5c5e62;
+        --tesla-accent: #3e6ae1; /* Premium Tesla Blue Accent */
+        --tesla-border: rgba(0, 0, 0, 0.08);
+        --tesla-font: 'Gotham', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        --tesla-transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* Core Animation Essentials */
+    .container-animate .fade-up {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), 
+                    transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .container-animate.animated .fade-up {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .container-animate.animated .fade-up:nth-child(2) { transition-delay: 0.15s; }
+    .container-animate.animated .fade-up:nth-child(3) { transition-delay: 0.3s; }
+
+    /* Section Control */
+    .section-padding {
+        padding: 100px 0;
+    }
+    .bg-tesla-light {
+        background-color: var(--tesla-grey-light) !important;
+    }
+    .section-title {
+        text-align: center;
+        margin-bottom: 60px;
+    }
+    .section-title span {
+        font-family: var(--tesla-font);
+        font-size: 13px;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        color: var(--tesla-accent); /* Highlighted Subtitle with Blue */
+        font-weight: 600;
+        display: block;
+        margin-bottom: 12px;
+    }
+    .section-title h2 {
+        font-family: var(--tesla-font);
+        font-size: 34px;
+        font-weight: 500;
+        color: var(--tesla-black);
+        letter-spacing: -0.5px;
+    }
+
+    /* Hero Section */
+    .hero-section {
+        position: relative;
+        height: 90vh;
+        min-height: 600px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.55)), 
+                    url("{% static 'images/hero-bg.jpg' %}") no-repeat center center/cover;
+        color: var(--tesla-white);
+        text-align: center;
+        font-family: var(--tesla-font);
+    }
+
+    .hero-content h1 {
+        font-size: 48px;
+        font-weight: 500;
+        letter-spacing: -0.8px;
+        margin-bottom: 20px;
+        color: var(--tesla-white);
+    }
+
+    .hero-content p {
+        font-size: 16px;
+        max-width: 650px;
+        margin: 0 auto 50px;
+        color: var(--tesla-white);
+        opacity: 0.9;
+        font-weight: 300;
+        line-height: 1.6;
+    }
+
+    /* Pill-Style Buttons */
+    .hero-btns {
+        display: flex;
+        justify-content: center;
+        gap: 24px;
+        flex-wrap: wrap;
+    }
+
+    .hero-btns .btn, .hero-btns .btn-outline {
+        font-family: var(--tesla-font);
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 260px;
+        height: 45px;
+        border-radius: 100px; 
+        font-size: 14px;
+        font-weight: 500;
+        text-decoration: none;
+        box-sizing: border-box;
+        transition: var(--tesla-transition);
+        text-transform: none;
+        letter-spacing: 0.5px;
+    }
+
+    .hero-btns .btn-primary {
+        background-color: var(--tesla-accent) !important; /* Highlighted Button with Blue */
+        color: var(--tesla-white) !important;
+        border: none;
+        box-shadow: 0 4px 14px rgba(62, 106, 225, 0.4);
+    }
+
+    .hero-btns .btn-primary:hover {
+        background-color: #2b54c5 !important;
+        box-shadow: 0 6px 20px rgba(62, 106, 225, 0.6);
+    }
+
+    .hero-btns .btn-outline {
+        background: transparent;
+        border: 2px solid var(--tesla-white) !important;
+        color: var(--tesla-white) !important;
+    }
+
+    .hero-btns .btn-outline:hover {
+        background: var(--tesla-white) !important;
+        color: var(--tesla-black) !important;
+    }
+
+    .btn-outline-dark {
+        font-family: var(--tesla-font);
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 260px;
+        height: 45px;
+        border-radius: 100px;
+        font-size: 14px;
+        font-weight: 500;
+        text-decoration: none;
+        background: transparent;
+        border: 2px solid var(--tesla-black) !important;
+        color: var(--tesla-black) !important;
+        transition: var(--tesla-transition);
+    }
+    .btn-outline-dark:hover {
+        background: var(--tesla-black) !important;
+        color: var(--tesla-white) !important;
+    }
+
+    /* Statistics Section */
+    .stats-section {
+        background: var(--tesla-white);
+        padding: 60px 40px;
+        border-radius: 8px; 
+        margin-top: -40px; 
+        position: relative;
+        z-index: 10;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        border-bottom: 1px solid var(--tesla-border);
+    }
+
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 20px;
+        text-align: center;
+    }
+
+    .stat-item h3 {
+        font-family: var(--tesla-font);
+        font-size: 42px;
+        font-weight: 500;
+        color: var(--tesla-accent); /* Blue Highlighted Counter Numbers */
+        margin-bottom: 8px;
+    }
+
+    .stat-item p {
+        font-family: var(--tesla-font);
+        font-size: 14px;
+        color: var(--tesla-grey-muted);
+        margin: 0;
+        font-weight: 400;
+    }
+
+    /* Products Grid */
+    .products-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 40px;
+        margin-top: 20px;
+    }
+
+    .product-card {
+        background: transparent;
+        border-radius: 0px;
+        overflow: hidden;
+        border: none;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        transition: var(--tesla-transition);
+    }
+
+    .product-img {
+        height: 320px;
+        overflow: hidden;
+        border-radius: 6px; 
+        box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    }
+
+    .product-img img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: var(--tesla-transition);
+    }
+
+    .product-card:hover .product-img img {
+        transform: scale(1.05);
+    }
+
+    .product-info {
+        padding: 24px 0 0 0; 
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+    }
+
+    .product-info h3 {
+        font-family: var(--tesla-font);
+        font-size: 22px;
+        font-weight: 500;
+        margin-bottom: 12px;
+        color: var(--tesla-black);
+    }
+
+    .product-info p {
+        font-family: var(--tesla-font);
+        font-size: 14px;
+        color: var(--tesla-grey-muted);
+        line-height: 1.6;
+        margin-bottom: 20px;
+        flex-grow: 1;
+    }
+
+    .product-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        color: var(--tesla-accent); /* Enhanced Blue Link text */
+        text-decoration: none;
+        font-weight: 500;
+        font-size: 14px;
+        transition: var(--tesla-transition);
+    }
+
+    .product-link:hover {
+        color: #2b54c5;
+        gap: 10px;
+    }
+
+    /* ==========================================================================
+       NEW: VIDEO SHOWCASE SYSTEM (TESLA MICRO-INTERACTION)
+       ========================================================================== */
+    .video-showcase-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 30px;
+        margin-top: 20px;
+    }
+
+    .video-card {
+        position: relative;
+        height: 480px;
+        background: var(--tesla-black);
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+        cursor: pointer;
+    }
+
+    .video-poster {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        z-index: 2;
+        transition: opacity 0.5s ease;
+    }
+
+    .video-element {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        z-index: 1;
+    }
+
+    .video-card-overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(to top, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.2) 60%, rgba(0, 0, 0, 0.4) 100%);
+        z-index: 3;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 30px;
+        box-sizing: border-box;
+    }
+
+    .play-status-tag {
+        align-self: flex-start;
+        background: rgba(255, 255, 255, 0.15);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        color: var(--tesla-white);
+        font-size: 12px;
+        font-weight: 500;
+        padding: 6px 14px;
+        border-radius: 100px;
+        font-family: var(--tesla-font);
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        transition: var(--tesla-transition);
+    }
+
+    .play-status-tag i {
+        font-size: 8px;
+        color: #ff3b30; /* Recording/Live Red Pulse */
+        animation: statusPulse 1.5s infinite;
+    }
+
+    @keyframes statusPulse {
+        0% { opacity: 0.3; }
+        50% { opacity: 1; }
+        100% { opacity: 0.3; }
+    }
+
+    .video-card:hover .play-status-tag {
+        background: var(--tesla-accent);
+        border-color: var(--tesla-accent);
+    }
+
+    .video-card:hover .play-status-tag i {
+        color: var(--tesla-white);
+    }
+
+    .video-card-info {
+        color: var(--tesla-white);
+        font-family: var(--tesla-font);
+    }
+
+    .video-card-info h3 {
+        font-size: 22px;
+        font-weight: 500;
+        margin-bottom: 10px;
+        color: var(--tesla-white);
+    }
+
+    .video-card-info p {
+        font-size: 14px;
+        color: rgba(255, 255, 255, 0.75);
+        line-height: 1.5;
+        margin: 0;
+        font-weight: 300;
+    }
+
+    /* Video Overlap Transitions */
+    .video-card.is-playing .video-poster {
+        opacity: 0;
+    }
+
+    /* Process Icons Styling */
+    .process-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 40px;
+    }
+
+    .process-card {
+        background: transparent;
+        padding: 20px 10px;
+        text-align: center;
+        border: none;
+    }
+
+    .process-icon {
+        width: 60px;
+        height: 60px;
+        color: var(--tesla-accent); /* Highlighted Process Icons with Blue */
+        background: rgba(62, 106, 225, 0.08);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 24px;
+        margin: 0 auto 24px;
+        transition: var(--tesla-transition);
+    }
+
+    .process-card:hover .process-icon {
+        background: var(--tesla-accent);
+        color: var(--tesla-white);
+        transform: translateY(-5px);
+    }
+
+    /* Gallery Block */
+    .gallery-preview-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 30px;
+    }
+
+    .gallery-item {
+        position: relative;
+        border-radius: 6px;
+        overflow: hidden;
+        height: 340px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    }
+
+    .gallery-item img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: var(--tesla-transition);
+    }
+
+    .gallery-item:hover img {
+        transform: scale(1.05);
+    }
+
+    .gallery-overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(transparent, rgba(62, 106, 225, 0.85)); /* Tinted Blue Gradient Overlay */
+        display: flex;
+        align-items: flex-end;
+        padding: 24px;
+        opacity: 0;
+        transition: var(--tesla-transition);
+    }
+
+    .gallery-item:hover .gallery-overlay {
+        opacity: 1;
+    }
+
+    .gallery-overlay h4 {
+        color: var(--tesla-white);
+        font-family: var(--tesla-font);
+        font-size: 18px;
+        font-weight: 500;
+        margin: 0;
+    }
+
+    /* FAQ Accordion */
+    .faq-container {
+        max-width: 750px;
+        margin: 40px auto 0;
+    }
+
+    .home-faq-item {
+        background: var(--tesla-white);
+        border: 1px solid var(--tesla-border);
+        border-radius: 6px;
+        margin-bottom: 16px;
+        overflow: hidden;
+        transition: var(--tesla-transition);
+    }
+
+    .home-faq-item.active {
+        border-color: var(--tesla-accent); /* Active Accordion Border Blue */
+        box-shadow: 0 4px 15px rgba(62, 106, 225, 0.05);
+    }
+
+    .faq-header {
+        padding: 24px;
+        font-family: var(--tesla-font);
+        font-size: 16px;
+        font-weight: 500;
+        color: var(--tesla-black);
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        user-select: none;
+        transition: var(--tesla-transition);
+    }
+
+    .home-faq-item.active .faq-header {
+        color: var(--tesla-accent); /* Active Accordion Text Blue */
+    }
+
+    .faq-body {
+        max-height: 0;
+        overflow: hidden;
+        opacity: 0;
+        padding: 0 24px; 
+        color: var(--tesla-grey-muted);
+        font-size: 14px;
+        line-height: 1.6;
+        transition: max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1), 
+                    padding 0.4s ease, 
+                    opacity 0.25s ease;
+    }
+
+    .home-faq-item.active .faq-body {
+        opacity: 1;
+        padding: 0 24px 24px;
+    }
+
+    .faq-header i {
+        font-size: 14px;
+        transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .home-faq-item.active .faq-header i {
+        transform: rotate(180deg);
+        color: var(--tesla-accent);
+    }
+
+    .faq-footer-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        color: var(--tesla-accent); /* Highlighted blue footer link */
+        text-decoration: none;
+        font-weight: 500;
+        font-size: 14px;
+        transition: var(--tesla-transition);
+    }
+
+    .faq-footer-link:hover {
+        color: #2b54c5;
+        text-decoration: underline;
+    }
+
+    /* Contact Form & Lead Capture Styling */
+    .contact-section {
+        background: var(--tesla-white);
+        border-top: 1px solid var(--tesla-border);
+    }
+
+    .contact-container {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 80px;
+        align-items: center;
+    }
+
+    .contact-info-side h2 {
+        font-family: var(--tesla-font);
+        font-size: 38px;
+        font-weight: 500;
+        color: var(--tesla-black);
+        margin-bottom: 20px;
+        letter-spacing: -0.5px;
+    }
+
+    .contact-info-side p {
+        font-family: var(--tesla-font);
+        font-size: 15px;
+        color: var(--tesla-grey-muted);
+        line-height: 1.6;
+    }
+
+    .features-list {
+        margin-top: 40px;
+    }
+
+    .feature-item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 20px;
+        font-weight: 400;
+        color: var(--tesla-black);
+        font-size: 15px;
+    }
+
+    .feature-item i {
+        color: var(--tesla-accent); /* Check Icons Highlighted Blue */
+        font-size: 18px;
+    }
+
+    /* Tesla Flat Minimal Form Design */
+    .form-box {
+        background: transparent;
+        padding: 0px; 
+        border-radius: 0px;
+        box-shadow: none;
+        border: none;
+    }
+
+    .form-group {
+        margin-bottom: 24px;
+    }
+
+    .form-group input, 
+    .form-group textarea {
+        width: 100%;
+        box-sizing: border-box; 
+        padding: 14px 18px;
+        border-radius: 6px;
+        border: 1px solid #d0d1d2;
+        background: #f7f7f8;
+        font-family: var(--tesla-font);
+        font-size: 14px;
+        transition: var(--tesla-transition);
+        outline: none;
+        color: var(--tesla-black);
+    }
+
+    .form-group input:focus, 
+    .form-group textarea:focus {
+        background: var(--tesla-white);
+        border-color: var(--tesla-accent); /* Focus Input Border Blue */
+        box-shadow: inset 0 0 0 1px var(--tesla-accent);
+    }
+
+    /* Tesla Submission Button Action */
+    .submit-btn {
+        width: 100%;
+        box-sizing: border-box;
+        height: 48px;
+        font-size: 15px;
+        font-weight: 500;
+        border-radius: 100px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        cursor: pointer;
+        background-color: var(--tesla-accent) !important;
+        color: var(--tesla-white) !important;
+        border: none;
+        transition: var(--tesla-transition);
+        box-shadow: 0 4px 14px rgba(62, 106, 225, 0.3);
+    }
+
+    .submit-btn:hover {
+        background-color: #2b54c5 !important;
+        box-shadow: 0 6px 20px rgba(62, 106, 225, 0.5);
+    }
+
+    .submit-btn i {
+        font-size: 13px;
+        transition: var(--tesla-transition);
+    }
+
+    .submit-btn:hover i {
+        transform: translateX(5px);
+    }
+
+    /* Responsive Queries */
+    @media (max-width: 992px) {
+        .section-padding { padding: 60px 0; }
+        .stats-section { margin-top: 0; padding: 40px 20px; }
+        .stats-grid {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+        }
+        .products-grid, .video-showcase-grid, .process-grid, .gallery-preview-grid {
+            grid-template-columns: 1fr;
+            gap: 40px;
+        }
+        .video-card { height: 380px; }
+        .hero-content h1 { font-size: 36px; }
+        .hero-section { height: auto; padding: 140px 0 100px; }
+        
+        .contact-container {
+            grid-template-columns: 1fr;
+            gap: 50px;
+        }
+    }
+
+    @media (max-width: 576px) {
+        .stats-grid {
+            grid-template-columns: 1fr;
+            gap: 24px;
+        }
+        .hero-content h1 { font-size: 30px; }
+        .hero-btns .btn, .hero-btns .btn-outline { width: 100%; }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+    <!-- Hero Structure Base -->
+    <section class="hero-section">
+        <div class="container container-animate">
+            <div class="hero-content fade-up">
+                <h1>Upgrade Your Windows with Premium Luxury</h1>
+                <p>Give your home and office an elegant, royal look with Serina Blinds' modern and high-quality window solutions. Enjoy free measurements and expert installation services.</p>
+                <div class="hero-btns">
+                    <a href="#contact" class="btn btn-primary">Get Free Estimate</a>
+                    <a href="{% url 'get_quote' %}" class="btn btn-outline">Custom Quote</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Counter Blocks Tracker -->
+    <div class="container container-animate">
+        <section class="stats-section fade-up">
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <h3 class="counter" data-target="5000" data-suffix="+">0+</h3>
+                    <p>Windows Transformed</p>
+                </div>
+                <div class="stat-item">
+                    <h3 class="counter" data-target="100" data-suffix="%">0%</h3>
+                    <p>Premium Hardwood & Fabrics</p>
+                </div>
+                <div class="stat-item">
+                    <h3 class="counter" data-target="15" data-suffix="+">0+</h3>
+                    <p>Years of Excellence</p>
+                </div>
+                <div class="stat-item">
+                    <h3 class="counter" data-target="4.9" data-type="decimal">0</h3>
+                    <p>Customer Rating</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Collections Block Grid -->
+    <section class="section-padding">
+        <div class="container container-animate">
+            <div class="section-title fade-up">
+                <span>Our Collections</span>
+                <h2>Trending Blinds Design</h2>
+            </div>
+
+            <div class="products-grid">
+                <div class="product-card fade-up">
+                    <div class="product-img">
+                        <img src="{% static 'images/products/roller-blinds.jpg' %}" alt="Roller Blinds">
+                    </div>
+                    <div class="product-info">
+                        <h3>Roller Blinds</h3>
+                        <p>Sleek, minimalistic, and exceptionally easy to operate. These blinds are the perfect choice for modern aesthetics and absolute privacy.</p>
+                        <a href="{% url 'roller_blinds' %}" class="product-link">View Details <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+                </div>
+
+                <div class="product-card fade-up">
+                    <div class="product-img">
+                        <img src="{% static 'images/products/zebra-blinds.jpg' %}" alt="Zebra Blinds">
+                    </div>
+                    <div class="product-info">
+                        <h3>Zebra Blinds</h3>
+                        <p>Featuring a stylish dual-layered fabric design that provides seamless day and night control, helping you filter light perfectly.</p>
+                        <a href="{% url 'zebra_blinds' %}" class="product-link">View Details <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+                </div>
+
+                <div class="product-card fade-up">
+                    <div class="product-img">
+                        <img src="{% static 'images/products/wooden-blinds.jpg' %}" alt="Wooden Blinds">
+                    </div>
+                    <div class="product-info">
+                        <h3>Wooden Blinds</h3>
+                        <p>Bring the natural warmth and classic touch of authentic wood. The ultimate choice for executive office spaces and luxury living rooms.</p>
+                        <a href="{% url 'wooden_blinds' %}" class="product-link">View Details <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================================================
+       ADDED: PRODUCT IN ACTION - TESLA VIDEO SHOWCASE SECTION
+       ========================================================================== */ -->
+    <section class="section-padding bg-tesla-light">
+        <div class="container container-animate">
+            <div class="section-title fade-up">
+                <span>Product in Action</span>
+                <h2>Experience Premium Smoothness</h2>
+            </div>
+
+            <div class="video-showcase-grid">
+                <!-- वीडियो कार्ड 1 -->
+                <div class="video-card fade-up">
+                    <img src="{% static 'images/products/roller-blinds.jpg' %}" class="video-poster" alt="Roller Blinds Film">
+                    <video class="video-element" loop muted playsinline preload="none">
+                        <source src="{% static 'videos/roller-short.mp4' %}" type="video/mp4">
+                    </video>
+                    <div class="video-card-overlay">
+                        <div class="play-status-tag"><i class="fa-solid fa-circle"></i> Hover to Play</div>
+                        <div class="video-card-info">
+                            <h3>Roller Smoothness</h3>
+                            <p>Watch how smoothly our premium motorized roller blinds glide up and down with a click.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- वीडियो कार्ड 2 -->
+                <div class="video-card fade-up">
+                    <img src="{% static 'images/products/zebra-blinds.jpg' %}" class="video-poster" alt="Zebra Blinds Film">
+                    <video class="video-element" loop muted playsinline preload="none">
+                        <source src="{% static 'videos/zebra-short.mp4' %}" type="video/mp4">
+                    </video>
+                    <div class="video-card-overlay">
+                        <div class="play-status-tag"><i class="fa-solid fa-circle"></i> Hover to Play</div>
+                        <div class="video-card-info">
+                            <h3>Zebra Light Filter</h3>
+                            <p>See the magic of transition between absolute privacy and soft cinematic sunlight filtration.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- वीडियो कार्ड 3 -->
+                <div class="video-card fade-up">
+                    <img src="{% static 'images/products/wooden-blinds.jpg' %}" class="video-poster" alt="Wooden Blinds Film">
+                    <video class="video-element" loop muted playsinline preload="none">
+                        <source src="{% static 'videos/wooden-short.mp4' %}" type="video/mp4">
+                    </video>
+                    <div class="video-card-overlay">
+                        <div class="play-status-tag"><i class="fa-solid fa-circle"></i> Hover to Play</div>
+                        <div class="video-card-info">
+                            <h3>Authentic Wood Vibe</h3>
+                            <p>Take a closer vertical look at the rich texture of solid hardwood cords and ultimate design finish.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Work Process Section -->
+    <section class="section-padding">
+        <div class="container container-animate">
+            <div class="section-title fade-up">
+                <span>How We Work</span>
+                <h2>3 Simple Steps to Perfect Blinds</h2>
+            </div>
+
+            <div class="process-grid">
+                <div class="process-card fade-up">
+                    <div class="process-icon"><i class="fa-solid fa-ruler-combined"></i></div>
+                    <h3>1. Free Measurement</h3>
+                    <p>Our experts visit your location to take precise window measurements, ensuring a flawless, zero-mistake fit.</p>
+                </div>
+                <div class="process-card fade-up">
+                    <div class="process-icon"><i class="fa-solid fa-palette"></i></div>
+                    <h3>2. Choose Design</h3>
+                    <p>Select your favorite shade from our extensive catalog featuring over 100 premium fabric textures and color patterns.</p>
+                </div>
+                <div class="process-card fade-up">
+                    <div class="process-icon"><i class="fa-solid fa-screwdriver-wrench"></i></div>
+                    <h3>3. Fast Installation</h3>
+                    <p>Your custom-made products are crafted at our factory and perfectly installed at your property within just 3 to 5 days.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Real Site Showcase Grid -->
+    <section class="section-padding bg-tesla-light">
+        <div class="container container-animate">
+            <div class="section-title fade-up">
+                <span>Our Work Gallery</span>
+                <h2>Latest Real Site Photos</h2>
+            </div>
+
+            <div class="gallery-preview-grid">
+                <div class="gallery-item fade-up">
+                    <img src="{% static 'images/products/living-room.jpg' %}" alt="Living Room Setup">
+                    <div class="gallery-overlay"><h4>Living Room Roller Blinds</h4></div>
+                </div>
+                <div class="gallery-item fade-up">
+                    <img src="{% static 'images/products/office.jpg' %}" alt="Corporate Office Setup">
+                    <div class="gallery-overlay"><h4>Corporate Premium Zebra Blinds</h4></div>
+                </div>
+                <div class="gallery-item fade-up">
+                    <img src="{% static 'images/products/bedroom.jpg' %}" alt="Bedroom Setup">
+                    <div class="gallery-overlay"><h4>Luxury Bedroom Wooden Blinds</h4></div>
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 40px;">
+                <a href="{% url 'gallery' %}" class="btn-outline-dark fade-up" style="text-decoration: none;">View Full Gallery <i class="fa-solid fa-images"></i></a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Accordion UI Stack -->
+    <section class="section-padding">
+        <div class="container container-animate">
+            <div class="section-title fade-up">
+                <span>Common Questions</span>
+                <h2>Frequently Asked Questions</h2>
+            </div>
+
+            <div class="faq-container">
+                <div class="home-faq-item fade-up">
+                    <div class="faq-header">What are the pricing models for custom blinds? <i class="fa-solid fa-chevron-down"></i></div>
+                    <div class="faq-body">Our blind pricing depends entirely on the square footage measurements and the chosen fabric variant. A final, accurate quotation will be provided to you during our doorstep survey.</div>
+                </div>
+                <div class="home-faq-item fade-up">
+                    <div class="faq-header">Do you offer a warranty on mechanism brackets? <i class="fa-solid fa-chevron-down"></i></div>
+                    <div class="faq-body">Yes, absolutely! All heavy-duty roller control chains and automatic gear brackets from Serina Blinds come with a comprehensive 1 to 3-year onsite replacement warranty.</div>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 40px;">
+                <a href="{% url 'faqs' %}" class="faq-footer-link fade-up">
+                    Have more questions? Visit FAQ Page <i class="fa-solid fa-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Lead Capturing Box Section -->
+    <section id="contact" class="section-padding contact-section">
+        <div class="container contact-container container-animate">
+            
+            <div class="contact-info-side fade-up">
+                <h2>Ready to Transform Your Windows?</h2>
+                <p>Fill out the form today to book your perfect window measurement session and design consultation. Our dedicated team will get in touch with you shortly.</p>
+                
+                <div class="features-list">
+                    <div class="feature-item"><i class="fa-solid fa-circle-check"></i> Free Doorstep Consultation</div>
+                    <div class="feature-item"><i class="fa-solid fa-circle-check"></i> 100+ Premium Fabrics & Designs</div>
+                    <div class="feature-item"><i class="fa-solid fa-circle-check"></i> Professional Super-Fast Installation</div>
+                </div>
+            </div>
+
+            <div class="form-box fade-up">
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="success-message" style="margin-bottom: 15px; padding: 12px; background: #e1f5fe; color: #0288d1; border-radius: 6px; font-weight: 500;">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+
+                <form action="{% url 'home_enquiry' %}" method="POST">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <input type="text" name="name" placeholder="Your Name" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" name="email" placeholder="Email Address" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="tel" name="phone" placeholder="Mobile Number" required>
+                    </div>
+                    <div class="form-group">
+                        <textarea name="message" rows="4" placeholder="Your Requirement (e.g., Zebra Blinds for Bedroom)" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary submit-btn">
+                        Book Free Consultation <i class="fa-solid fa-paper-plane"></i>
+                    </button>
+                </form>
+            </div>
+
+        </div>
+    </section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        initScrollAnimations();
+        initFAQAccordion();
+        initFormGuard();
+        initVideoShowcase(); // NEW: वीडियो होवर इंजन चालू किया गया
+    });
+
+    const initScrollAnimations = () => {
+        const animatedContainers = document.querySelectorAll('.container-animate');
+        if (!animatedContainers.length) return;
+
+        if (!('IntersectionObserver' in window)) {
+            animatedContainers.forEach(container => {
+                container.classList.add('animated');
+                const counters = container.querySelectorAll('.counter');
+                if (counters.length) startPremiumCounters(counters);
+            });
+            return;
+        }
+
+        const observerOptions = {
+            root: null,
+            threshold: 0.12, 
+            rootMargin: '0px 0px -20px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animated');
+                    const counters = entry.target.querySelectorAll('.counter');
+                    if (counters.length > 0) {
+                        startPremiumCounters(counters);
+                    }
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        animatedContainers.forEach(container => {
+            observer.observe(container);
+        });
+    };
+
+    const startPremiumCounters = (counters) => {
+        counters.forEach(counter => {
+            const target = parseFloat(counter.getAttribute('data-target'));
+            const suffix = counter.getAttribute('data-suffix') || '';
+            const type = counter.getAttribute('data-type') || 'integer';
+            const duration = 2000; 
+            let startTimestamp = null;
+
+            const step = (timestamp) => {
+                if (!startTimestamp) startTimestamp = timestamp;
+                const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                const easeProgress = 1 - Math.pow(1 - progress, 3);
+                const currentRawVal = easeProgress * target;
+
+                if (type === 'decimal') {
+                    counter.innerText = currentRawVal.toFixed(1) + suffix;
+                } else {
+                    counter.innerText = Math.floor(currentRawVal).toLocaleString() + suffix;
+                }
+
+                if (progress < 1) {
+                    window.requestAnimationFrame(step);
+                } else {
+                    if (type === 'decimal') {
+                        counter.innerText = target.toFixed(1) + suffix;
+                    } else {
+                        counter.innerText = target.toLocaleString() + suffix;
+                    }
+                }
+            };
+            window.requestAnimationFrame(step);
+        });
+    };
+
+    /* ==========================================================================
+       NEW: TESLA INTERACTIVE VIDEO HOVER HANDLING ENGINE
+       ========================================================================== */
+    const initVideoShowcase = () => {
+        const videoCards = document.querySelectorAll('.video-card');
+        
+        videoCards.forEach(card => {
+            const video = card.querySelector('.video-element');
+            const statusTag = card.querySelector('.play-status-tag');
+            
+            card.addEventListener('mouseenter', () => {
+                if (!video) return;
+                
+                // preload="none" होने के कारण होवर पर पहले वीडियो डेटा फ़ेच होगा
+                if (video.readyState === 0) {
+                    video.load();
+                }
+                
+                card.classList.add('is-playing');
+                if (statusTag) statusTag.innerHTML = '<i class="fa-solid fa-circle"></i> Playing Video';
+                
+                const playPromise = video.play();
+                if (playPromise !== undefined) {
+                    playPromise.catch(error => {
+                        console.log("Autoplay context blocked by browser policy: ", error);
+                    });
+                }
+            });
+
+            card.addEventListener('mouseleave', () => {
+                if (!video) return;
+                
+                video.pause();
+                video.currentTime = 0; // वीडियो वापस शुरू (Reset) पर आ जाएगी
+                card.classList.remove('is-playing');
+                if (statusTag) statusTag.innerHTML = '<i class="fa-solid fa-circle"></i> Hover to Play';
+            });
+        });
+    };
+
+    const initFAQAccordion = () => {
+        const faqHeaders = document.querySelectorAll('.home-faq-item .faq-header');
+        
+        faqHeaders.forEach(header => {
+            header.addEventListener('click', () => {
+                const currentItem = header.parentElement;
+                const currentBody = currentItem.querySelector('.faq-body');
+                const isOpen = currentItem.classList.contains('active');
+                
+                document.querySelectorAll('.home-faq-item').forEach(item => {
+                    if (item !== currentItem && item.classList.contains('active')) {
+                        item.classList.remove('active');
+                        item.querySelector('.faq-body').style.maxHeight = '0px';
+                    }
+                });
+
+                if (!isOpen) {
+                    currentItem.classList.add('active');
+                    currentBody.style.maxHeight = currentBody.scrollHeight + 'px'; 
+                } else {
+                    currentItem.classList.remove('active');
+                    currentBody.style.maxHeight = '0px';
+                }
+            });
+        });
+    };
+
+    const initFormGuard = () => {
+        const contactForm = document.querySelector('.form-box form');
+        if (contactForm) {
+            contactForm.addEventListener('submit', function() {
+                const submitBtn = this.querySelector('.submit-btn');
+                if (submitBtn) {
+                    submitBtn.style.pointerEvents = 'none';
+                    submitBtn.style.opacity = '0.7';
+                    submitBtn.innerHTML = 'Processing Request... <i class="fa-solid fa-spinner fa-spin"></i>';
+                }
+            });
+        }
+    };
+</script>
+{% endblock %}

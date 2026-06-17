@@ -1,0 +1,470 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Premium Roller Blinds | Serina Blinds - Architectural Shading{% endblock %}
+
+{% block extra_css %}
+<style>
+    /* ==========================================================================
+       PRODUCT DETAILS HERO - CLEAN ARCHITECTURAL LAYOUT (TESLA SYNCED SYSTEM)
+       ========================================================================== */
+    .product-hero {
+        position: relative;
+        background: linear-gradient(rgba(255, 255, 255, 0.88), rgba(255, 255, 255, 0.96)), 
+                    url('{% static "images/product-hero-bg.jpg" %}') no-repeat center center/cover;
+        padding: 140px 0 80px;
+        overflow: hidden;
+    }
+
+    /* Geometric Blueprint Mesh System */
+    .product-hero::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background-image: 
+            linear-gradient(rgba(62, 106, 225, 0.02) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(62, 106, 225, 0.02) 1px, transparent 1px);
+        background-size: 40px 40px;
+        mask-image: radial-gradient(circle at center, black, transparent 80%);
+        pointer-events: none;
+        z-index: 2;
+    }
+
+    .product-hero-grid {
+        display: grid;
+        grid-template-columns: 1.1fr 0.9fr;
+        gap: 64px;
+        align-items: center;
+        position: relative;
+        z-index: 5;
+    }
+
+    .product-hero-content span {
+        color: var(--tesla-accent);
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        font-size: 12px;
+        display: block;
+        margin-bottom: 12px;
+    }
+
+    .product-hero-content h1 {
+        font-size: 46px;
+        font-weight: 700;
+        color: var(--tesla-black);
+        margin-bottom: 24px;
+        letter-spacing: -1px;
+        line-height: 1.2;
+    }
+
+    .product-hero-content p {
+        font-size: 16px;
+        color: var(--tesla-grey-muted);
+        line-height: 1.7;
+        margin-bottom: 36px;
+    }
+
+    /* Premium Product Visualization Frame */
+    .product-showcase-frame {
+        border-radius: 20px;
+        overflow: hidden;
+        border: 1px solid var(--tesla-border);
+        box-shadow: 0 20px 50px rgba(0,0,0,0.04);
+        height: 450px;
+        background: #f8f9fa;
+    }
+
+    .product-showcase-frame img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    /* ==========================================================================
+       SPECIFICATIONS TABLE - INDUSTRIAL MATRIX SYSTEM
+       ========================================================================== */
+    .specs-section {
+        padding: 100px 0;
+        background: var(--tesla-white);
+    }
+
+    .specs-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 80px;
+    }
+
+    .specs-text h2 {
+        font-size: 32px;
+        font-weight: 600;
+        color: var(--tesla-black);
+        margin-bottom: 20px;
+        letter-spacing: -0.5px;
+    }
+
+    .specs-text p {
+        color: var(--tesla-grey-muted);
+        font-size: 15.5px;
+        line-height: 1.75;
+        margin-bottom: 24px;
+    }
+
+    /* Refactored Technical Specs Data Surface */
+    .specs-matrix {
+        background: #fbfbfd;
+        padding: 40px;
+        border-radius: 20px;
+        border: 1px solid var(--tesla-border);
+    }
+
+    .specs-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 18px 0;
+        border-bottom: 1px solid var(--tesla-border);
+    }
+
+    .specs-row:last-child { border: none; }
+
+    .specs-label {
+        font-weight: 600;
+        color: var(--tesla-black);
+        font-size: 13px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    .specs-value {
+        color: var(--tesla-grey-muted);
+        font-size: 14.5px;
+        text-align: right;
+        max-width: 60%;
+    }
+
+    /* Inline Feature Grid Tags */
+    .about-feature-tagline {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+        margin-top: 40px;
+    }
+
+    .about-feature-tagline h4 {
+        font-size: 16px;
+        font-weight: 600;
+        color: var(--tesla-black);
+        margin: 0 0 6px 0;
+    }
+
+    .about-feature-tagline p {
+        font-size: 14px;
+        color: var(--tesla-grey-muted);
+        margin: 0;
+    }
+
+    /* ==========================================================================
+       TECHNICAL FABRIC SHOWCASE (SURFACE GLASS GRID)
+       ========================================================================== */
+    .fabric-showcase {
+        padding: 100px 0;
+        background: #fbfbfd;
+        border-top: 1px solid var(--tesla-border);
+    }
+
+    .fabric-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 24px;
+        margin-top: 50px;
+    }
+
+    .fabric-card {
+        background: var(--tesla-white);
+        border: 1px solid var(--tesla-border);
+        padding: 40px 30px;
+        border-radius: 16px;
+        transition: var(--tesla-transition);
+    }
+
+    .fabric-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.03);
+        border-color: rgba(62, 106, 225, 0.25);
+    }
+
+    .fabric-icon-box {
+        width: 52px;
+        height: 52px;
+        background: #f8f9fa;
+        color: var(--tesla-black);
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 18px;
+        margin-bottom: 24px;
+        border: 1px solid var(--tesla-border);
+        transition: var(--tesla-transition);
+    }
+
+    .fabric-card:hover .fabric-icon-box {
+        background: var(--tesla-accent);
+        color: var(--tesla-white);
+        border-color: var(--tesla-accent);
+    }
+
+    .fabric-card h3 {
+        font-size: 20px;
+        font-weight: 600;
+        color: var(--tesla-black);
+        margin-bottom: 12px;
+    }
+
+    .fabric-card p {
+        font-size: 14.5px;
+        color: var(--tesla-grey-muted);
+        line-height: 1.6;
+        margin: 0;
+    }
+
+    /* ==========================================================================
+       PRODUCT MONOLITH CTA SECTION
+       ========================================================================== */
+    .product-cta-section {
+        padding: 80px 0;
+    }
+
+    .cta-box {
+        background: var(--tesla-black);
+        color: var(--tesla-white);
+        padding: 60px 40px;
+        border-radius: 20px;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .cta-box::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background-image: linear-gradient(rgba(62, 106, 225, 0.03) 1px, transparent 1px), 
+                          linear-gradient(90deg, rgba(62, 106, 225, 0.03) 1px, transparent 1px);
+        background-size: 40px 40px;
+        pointer-events: none;
+    }
+
+    .cta-box h2 {
+        font-size: 36px;
+        font-weight: 600;
+        margin-bottom: 16px;
+        letter-spacing: -0.5px;
+        color: var(--tesla-white);
+    }
+
+    .cta-box p {
+        font-size: 15.5px;
+        color: #a2a3a5;
+        max-width: 600px;
+        margin: 0 auto 36px;
+        line-height: 1.6;
+    }
+
+    /* Pure Tesla Signature Monolith Action Buttons */
+    .tesla-premium-btn {
+        height: 48px;
+        padding: 0 36px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        background: var(--tesla-black);
+        color: var(--tesla-white);
+        border: none;
+        border-radius: 100px;
+        font-weight: 500;
+        font-size: 14px;
+        text-decoration: none;
+        transition: var(--tesla-transition);
+    }
+
+    .tesla-premium-btn:hover {
+        background: var(--tesla-accent);
+        box-shadow: 0 8px 24px rgba(62, 106, 225, 0.25);
+        color: var(--tesla-white);
+    }
+
+    .tesla-premium-btn.light {
+        background: var(--tesla-white);
+        color: var(--tesla-black);
+    }
+
+    .tesla-premium-btn.light:hover {
+        background: var(--tesla-accent);
+        color: var(--tesla-white);
+        box-shadow: 0 8px 24px rgba(62, 106, 225, 0.3);
+    }
+
+    /* LAYOUT RESPONSIVE BREAKPOINTS */
+    @media (max-width: 1024px) {
+        .product-hero-grid, .specs-grid {
+            grid-template-columns: 1fr;
+            gap: 48px;
+        }
+        .product-hero-content { text-align: center; }
+        .product-showcase-frame { height: 360px; }
+        .cta-box h2 { font-size: 28px; }
+        .cta-box { padding: 50px 24px; }
+    }
+    @media (max-width: 576px) {
+        .product-hero-content h1 { font-size: 34px; }
+        .about-feature-tagline { grid-template-columns: 1fr; gap: 16px; }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+
+    <!-- PRODUCT HERO SECTION -->
+    <section class="product-hero">
+        <div class="container">
+            <div class="product-hero-grid container-animate">
+                
+                <div class="product-hero-content">
+                    <span>Performance Shading</span>
+                    <h1>Architectural <br>Roller Blind Systems</h1>
+                    <p>Experience the pinnacle of minimalist window design. Our roller systems combine precision-engineered tracking with high-performance technical fabrics to provide effortless solar control and clean symmetry for modern interiors.</p>
+                    
+                    <a href="{% url 'get_quote' %}" class="tesla-premium-btn">
+                        Book Laser Assessment <i class="fa-solid fa-ruler-combined" style="margin-left: 10px; font-size: 12px;"></i>
+                    </a>
+                </div>
+
+                <div class="fade-up">
+                    <div class="product-showcase-frame">
+                        <img src="{% static 'images/products/roller-blinds.jpg' %}" alt="Installed architectural roller blind over a modern window with technical fabric and sleek metal tracking in a minimalist interior">
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- TECHNICAL SPECIFICATIONS MATRIX -->
+    <section class="specs-section">
+        <div class="container">
+            <div class="specs-grid container-animate">
+                
+                <div class="specs-text fade-up">
+                    <h2>Precision Engineering for Light Management</h2>
+                    <p>Serina Roller Blinds are factory-calibrated using micro-cut technology to ensure zero-tolerance alignment. Mounted on heavy-duty powder-coated aluminum profiles, our systems are designed for durability and silent operation.</p>
+                    <p>Whether for expansive corporate facades or residential glass partitions, our roller systems offer a flush-mount aesthetic that disappears into the architecture when raised.</p>
+                    
+                    <div class="about-feature-tagline">
+                        <div>
+                            <h4>Anti-Static</h4>
+                            <p>Dust-repellent surface treatments.</p>
+                        </div>
+                        <div>
+                            <h4>FR Rated</h4>
+                            <p>Global fire safety certifications.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="fade-up">
+                    <div class="specs-matrix">
+                        <div class="specs-row">
+                            <div class="specs-label">Material Profile</div>
+                            <div class="specs-value">Technical Polyester / Glass-fiber Composites</div>
+                        </div>
+                        <div class="specs-row">
+                            <div class="specs-label">Opacity Levels</div>
+                            <div class="specs-value">Translucent / 100% Solid Blackout</div>
+                        </div>
+                        <div class="specs-row">
+                            <div class="specs-label">Hardware</div>
+                            <div class="specs-value">Silent-Motion™ Core Tracking</div>
+                        </div>
+                        <div class="specs-row">
+                            <div class="specs-label">Control Type</div>
+                            <div class="specs-value">High-Tension Manual / Smart Motorized</div>
+                        </div>
+                        <div class="specs-row">
+                            <div class="specs-label">Maintenance</div>
+                            <div class="specs-value">Micro-Wipe Clean / Anti-Fungal Surface</div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- TECHNICAL FABRIC CURATION SHOWCASE -->
+    <section class="fabric-showcase">
+        <div class="container">
+            <div class="section-title container-animate" style="text-align: center; max-width: 700px; margin: 0 auto;">
+                <span style="color: var(--tesla-accent); font-weight: 600; text-transform: uppercase; letter-spacing: 2px; font-size: 12px; display: block;">Curation</span>
+                <h2 style="margin-top: 8px; font-size: 32px; font-weight: 600; color: var(--tesla-black);">Specialized Technical Weaves</h2>
+                <p style="color: var(--tesla-grey-muted); margin-top: 12px; font-size: 15px;">Select the ideal fabric density based on your room's orientation and privacy requirements.</p>
+            </div>
+
+            <div class="fabric-grid container-animate">
+                
+                <div class="fabric-card">
+                    <div class="fabric-icon-box"><i class="fa-solid fa-moon"></i></div>
+                    <h3>Total Blackout</h3>
+                    <p>Designed for absolute light elimination. Ideal for master suites and media rooms requiring 0% light infiltration.</p>
+                </div>
+
+                <div class="fabric-card">
+                    <div class="fabric-icon-box"><i class="fa-solid fa-sun"></i></div>
+                    <h3>Solar Screen</h3>
+                    <p>Blocks 95% of UV heat while preserving outside views and allowing soft ambient light to fill the space.</p>
+                </div>
+
+                <div class="fabric-card">
+                    <div class="fabric-icon-box"><i class="fa-solid fa-droplet-slash"></i></div>
+                    <h3>Moisture Guard</h3>
+                    <p>Antimicrobial coated fabrics engineered specifically for high-humidity areas like luxury bathrooms and kitchens.</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- UNIFIED PREMIUM ACTION CONTEXT -->
+    <div class="container">
+        <section class="product-cta-section container-animate">
+            <div class="cta-box">
+                <h2>Ready to Configure Your Space?</h2>
+                <p>Our consultants arrive with full material sample decks and laser diagnostic tools to provide a comprehensive structural assessment at your doorstep.</p>
+                <a href="{% url 'get_quote' %}" class="tesla-premium-btn light">
+                    Request Free Estimate <i class="fa-solid fa-arrow-right" style="margin-left: 10px; font-size: 12px;"></i>
+                </a>
+            </div>
+        </section>
+    </div>
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // System Structural Observer Blueprint
+    document.addEventListener('DOMContentLoaded', () => {
+        const animatedContainers = document.querySelectorAll('.container-animate');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animated');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.12 });
+
+        animatedContainers.forEach(container => observer.observe(container));
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,690 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{% block title %}SERINA Blinds | Premium Window Blinds{% endblock %}</title>
+
+    <!-- Tesla Premium Fonts Definition -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    
+    <!-- Base Core Framework System Rules -->
+    <style>
+        /* ==========================================================================
+           TESLA MINIMALIST LUXURY CORE FRAMEWORK - SERINA GLOBAL DEFINITIONS
+           ========================================================================== */
+        :root {
+            --tesla-black: #171a20;
+            --tesla-white: #ffffff;
+            --tesla-grey-dark: #393c41;
+            --tesla-grey-light: #f4f4f4;
+            --tesla-grey-muted: #5c5e62;
+            --tesla-accent: #3e6ae1; /* Serina Premium Blue Highlight */
+            --tesla-border: rgba(0, 0, 0, 0.08);
+            --tesla-border-white: rgba(255, 255, 255, 0.1);
+            --tesla-font: 'Gotham', 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            --tesla-transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--tesla-font);
+            background-color: var(--tesla-white);
+            color: var(--tesla-black);
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Topbar Style Configuration */
+        .topbar {
+            background-color: var(--tesla-black);
+            color: var(--tesla-white);
+            font-size: 12px;
+            font-weight: 400;
+            letter-spacing: 0.5px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid var(--tesla-border-white);
+        }
+
+        .topbar-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+
+        .topbar-left {
+            display: flex;
+            gap: 24px;
+        }
+
+        .topbar-left span {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            opacity: 0.8;
+            transition: var(--tesla-transition);
+        }
+
+        .topbar-left span:hover {
+            opacity: 1;
+            color: #7fa1ff; /* BLUE TOUCHUP: Subtle premium glow top row info */
+        }
+
+        .topbar-right span {
+            text-transform: uppercase;
+            font-size: 11px;
+            letter-spacing: 1px;
+            opacity: 0.7;
+        }
+
+        /* Sticky Flat Navbar Framework */
+        .navbar {
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--tesla-border);
+            height: 70px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            transition: var(--tesla-transition);
+        }
+
+        .navbar.scroll-shadow {
+            height: 64px;
+            background-color: var(--tesla-white);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+            border-bottom: 1px solid rgba(62, 106, 225, 0.08); /* BLUE TOUCHUP: Scroll outline line hint */
+        }
+
+        .nav-wrapper {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+
+        /* Tesla Typography Brand Identity */
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--tesla-black);
+        }
+
+        .logo-icon i {
+            font-size: 22px;
+            color: var(--tesla-accent); /* BLUE TOUCHUP: Icon transitioned into signature brand blue */
+        }
+
+        .logo-text h2 {
+            font-size: 18px;
+            font-weight: 600;
+            letter-spacing: 3px;
+            line-height: 1.1;
+        }
+
+        .logo-text span {
+            font-size: 10px;
+            letter-spacing: 4px;
+            color: var(--tesla-accent); /* BLUE TOUCHUP: Clean Tech subtle brand subtitle */
+            font-weight: 600;
+            display: block;
+        }
+
+        /* Center Content Alignment Links */
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            list-style: none;
+        }
+
+        .nav-links > li > a, .dropdown-toggle {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--tesla-black);
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            transition: var(--tesla-transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .nav-links > li > a:hover, .dropdown-toggle:hover {
+            background-color: rgba(62, 106, 225, 0.06); /* BLUE TOUCHUP: Clean hover panel color */
+            color: var(--tesla-accent);
+        }
+
+        /* Minimal Flush Menu Panels */
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%) translateY(10px);
+            background-color: var(--tesla-white);
+            border: 1px solid rgba(62, 106, 225, 0.12); /* BLUE TOUCHUP: Clean dynamic dropdown bounding wrap */
+            box-shadow: 0 10px 30px rgba(62, 106, 225, 0.06);
+            border-radius: 8px;
+            min-width: 200px;
+            padding: 8px 0;
+            list-style: none;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--tesla-transition);
+        }
+
+        .dropdown:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(4px);
+        }
+
+        .dropdown-menu li a {
+            font-size: 14px;
+            color: var(--tesla-grey-dark);
+            padding: 10px 20px;
+            display: block;
+            text-decoration: none;
+            transition: var(--tesla-transition);
+        }
+
+        .dropdown-menu li a:hover {
+            background-color: rgba(62, 106, 225, 0.05); /* BLUE TOUCHUP: Active inner sub item layout color */
+            color: var(--tesla-accent);
+            padding-left: 24px;
+        }
+
+        /* Actions Pill Controls */
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .nav-actions .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            height: 36px;
+            padding: 0 20px;
+            font-size: 13px;
+            font-weight: 500;
+            border-radius: 100px;
+            text-decoration: none;
+            transition: var(--tesla-transition);
+        }
+
+        .nav-actions .btn-outline {
+            border: 1.5px solid var(--tesla-accent); /* BLUE TOUCHUP: Shifted to custom blue structural outline outline */
+            color: var(--tesla-accent);
+            background: transparent;
+        }
+
+        .nav-actions .btn-outline:hover {
+            background-color: var(--tesla-accent);
+            color: var(--tesla-white);
+            box-shadow: 0 8px 20px rgba(62, 106, 225, 0.2);
+        }
+
+        .nav-actions .btn-primary {
+            background-color: var(--tesla-grey-light);
+            color: var(--tesla-black);
+            border: none;
+            gap: 8px;
+        }
+
+        .nav-actions .btn-primary:hover {
+            background-color: #e2e2e3;
+        }
+
+        /* Mobile Utility Handle triggers */
+        .menu-btn {
+            display: none;
+            font-size: 20px;
+            cursor: pointer;
+            color: var(--tesla-black);
+            width: 36px;
+            height: 36px;
+            align-items: center;
+            justify-content: center;
+            border-radius: 4px;
+            transition: var(--tesla-transition);
+        }
+
+        .menu-btn:hover {
+            background-color: rgba(62, 106, 225, 0.08); /* BLUE TOUCHUP: Mobile menu click response glow */
+            color: var(--tesla-accent);
+        }
+
+        /* Main Structural Viewport content wrapper */
+        main {
+            min-height: calc(100vh - 426px);
+        }
+
+        /* Industrial Flat Minimal Footer Structure */
+        footer {
+            background-color: var(--tesla-black);
+            color: var(--tesla-white);
+            padding: 80px 0 0 0;
+            font-family: var(--tesla-font);
+        }
+
+        .footer-top {
+            padding-bottom: 60px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1.2fr;
+            gap: 48px;
+        }
+
+        .footer-logo h2 {
+            font-size: 20px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+            background: linear-gradient(90deg, #ffffff, #a2b7f3); /* BLUE TOUCHUP: Ultra-premium clean heading accent gradient */
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .footer-logo p {
+            font-size: 14px;
+            line-height: 1.6;
+            color: #a2a3a5;
+            margin-bottom: 24px;
+            max-width: 320px;
+            font-weight: 300;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 16px;
+        }
+
+        .social-icons a {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background-color: var(--tesla-grey-dark);
+            color: var(--tesla-white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            text-decoration: none;
+            transition: var(--tesla-transition);
+        }
+
+        .social-icons a:hover {
+            background-color: var(--tesla-accent); /* BLUE TOUCHUP: Active social anchor highlights switched to brand tone */
+            color: var(--tesla-white);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(62, 106, 225, 0.3);
+        }
+
+        .footer-title {
+            font-size: 15px;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            margin-bottom: 24px;
+            color: var(--tesla-white);
+            position: relative;
+        }
+
+        .footer-title::after {
+            content: '';
+            position: absolute;
+            bottom: -6px;
+            left: 0;
+            width: 18px;
+            height: 2px;
+            background: var(--tesla-accent); /* BLUE TOUCHUP: Clean linear category identifier underscore */
+        }
+
+        .footer-links {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .footer-links a {
+            font-size: 14px;
+            color: #a2a3a5;
+            text-decoration: none;
+            transition: var(--tesla-transition);
+            width: fit-content;
+        }
+
+        .footer-links a:hover {
+            color: var(--tesla-white);
+            padding-left: 6px;
+            text-shadow: 0 0 10px rgba(62, 106, 225, 0.6); /* BLUE TOUCHUP: Soft glowing hover track */
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin-bottom: 16px;
+            font-size: 14px;
+            color: #a2a3a5;
+            line-height: 1.4;
+        }
+
+        .contact-item i {
+            color: var(--tesla-accent); /* BLUE TOUCHUP: Footer icon indicators matching structural colors */
+            margin-top: 3px;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid var(--tesla-border-white);
+            padding: 24px 0;
+            text-align: center;
+            font-size: 13px;
+            color: #757679;
+            letter-spacing: 0.5px;
+        }
+
+        /* Floating Interactive Core Controls */
+        .whatsapp {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background-color: #25d366;
+            color: var(--tesla-white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            text-decoration: none;
+            box-shadow: 0 8px 24px rgba(37, 211, 102, 0.3);
+            z-index: 999;
+            transition: var(--tesla-transition);
+        }
+
+        .whatsapp:hover {
+            transform: scale(1.08) translateY(-4px);
+            box-shadow: 0 12px 28px rgba(37, 211, 102, 0.4);
+        }
+
+        /* Media Responsive Query Systems */
+        @media (max-width: 992px) {
+            .topbar { display: none; }
+            .nav-links, .nav-actions { display: none; }
+            .menu-btn { display: flex; }
+            .footer-grid { grid-template-columns: 1fr 1fr; gap: 40px; }
+            
+            /* Responsive Drawer Sheet */
+            .nav-links.mobile-active {
+                display: flex;
+                flex-direction: column;
+                position: absolute;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background-color: var(--tesla-white);
+                border-bottom: 2px solid rgba(62, 106, 225, 0.15); /* BLUE TOUCHUP: Clean tech terminal underline indicator */
+                padding: 20px;
+                gap: 10px;
+                box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+            }
+            
+            .nav-links.mobile-active > li {
+                width: 100%;
+            }
+
+            .nav-links.mobile-active > li > a {
+                display: block;
+                width: 100%;
+                padding: 12px 16px;
+            }
+
+            .dropdown-menu {
+                position: static;
+                transform: none !important;
+                box-shadow: none;
+                opacity: 1;
+                visibility: visible;
+                display: none;
+                padding-left: 20px;
+                border: none;
+            }
+            
+            .dropdown.open-active .dropdown-menu {
+                display: block;
+                background-color: rgba(62, 106, 225, 0.02); /* BLUE TOUCHUP: Distinct drawer depth separation stack block */
+            }
+        }
+
+        @media (max-width: 576px) {
+            .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+            .whatsapp { bottom: 20px; right: 20px; width: 46px; height: 46px; font-size: 22px; }
+        }
+    </style>
+    
+    {% block extra_css %}{% endblock %}
+</head>
+
+<body>
+
+<!-- Global Informative Utility Row -->
+<div class="topbar">
+    <div class="container topbar-content">
+        <div class="topbar-left">
+            <span>
+                <i class="fa-solid fa-phone"></i>
+                +91 9354467452
+            </span>
+            <span>
+                <i class="fa-solid fa-envelope"></i>
+                info.serinablinds@gmail.com
+            </span>
+        </div>
+        <div class="topbar-right">
+            <span>Premium Window Blinds Solutions</span>
+        </div>
+    </div>
+</div>
+
+<!-- Header Control Core Hub -->
+<header class="navbar" id="navbar">
+    <div class="container nav-wrapper">
+        
+        <!-- Logo Branding Wrapper -->
+        <a href="{% url 'home' %}" class="logo" style="text-decoration: none;">
+            <div class="logo-icon">
+                <i class="fa-solid fa-window-maximize"></i>
+            </div>
+            <div class="logo-text">
+                <h2>SERINA</h2>
+                <span>BLINDS</span>
+            </div>
+        </a>
+
+        <!-- Main Hub Central Panel Links -->
+        <ul class="nav-links" id="navLinks">
+            <li><a href="{% url 'home' %}">Home</a></li>
+            <li><a href="{% url 'about' %}">About</a></li>
+            
+            <li class="dropdown" id="dropdownContainer">
+                <a href="#" class="dropdown-toggle" id="dropdownToggle">Products <i class="fa-solid fa-chevron-down" style="font-size: 11px;"></i></a>
+                <ul class="dropdown-menu">
+                    <li><a href="{% url 'roller_blinds' %}">Roller Blinds</a></li>
+                    <li><a href="{% url 'zebra_blinds' %}">Zebra Blinds</a></li>
+                    <li><a href="{% url 'wooden_blinds' %}">Wooden Blinds</a></li>
+                    <li><a href="{% url 'other_blinds' %}">More Collection</a></li>
+                </ul>
+            </li>
+            
+            <li><a href="{% url 'gallery' %}">Gallery</a></li>
+            <li><a href="{% url 'faqs' %}">FAQs</a></li>
+            <li><a href="{% url 'contact' %}">Contact</a></li>
+        </ul>
+
+        <!-- Fast Conversational Core Actions -->
+        <div class="nav-actions">
+            <a href="{% url 'get_quote' %}" class="btn btn-outline">Get Quote</a>
+            <a href="tel:+919354467452" class="btn btn-primary">
+                <i class="fa-solid fa-phone"></i>
+                Call Now
+            </a>
+        </div>
+
+        <!-- System Target Mobile Trigger -->
+        <div class="menu-btn" id="menuBtn">
+            <i class="fa-solid fa-bars"></i>
+        </div>
+
+    </div>
+</header>
+
+<!-- Child Dynamic Injection Viewport Template -->
+<main>
+    {% block content %}
+    {% endblock %}
+</main>
+
+<!-- Production Matrix Bottom Block -->
+<footer>
+    <div class="container footer-top">
+        <div class="footer-grid">
+            <div class="footer-logo">
+                <h2>SERINA BLINDS</h2>
+                <p>
+                    Elevate your interiors with premium window blinds.
+                    Modern design, superior quality, elegant finishing,
+                    and professional installation services.
+                </p>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://www.instagram.com/serinablinds.india" target="_blank"><i class="fab fa-instagram"></i></a>
+                    <a href="https://youtube.com/@serinablindsindia?si=UehvYsD3xs4aitDT" target="_blank"><i class="fab fa-youtube"></i></a>
+                    <a href="https://wa.me/919354467452" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                </div>
+            </div>
+
+            <div>
+                <h3 class="footer-title">Quick Links</h3>
+                <div class="footer-links">
+                    <a href="{% url 'home' %}">Home</a>
+                    <a href="{% url 'about' %}">About Us</a>
+                    <a href="{% url 'gallery' %}">Gallery</a>
+                    <a href="{% url 'faqs' %}">FAQs</a>
+                    <a href="{% url 'contact' %}">Contact Us</a>
+                </div>
+            </div>
+
+            <div>
+                <h3 class="footer-title">Our Products</h3>
+                <div class="footer-links">
+                    <a href="{% url 'roller_blinds' %}">Roller Blinds</a>
+                    <a href="{% url 'zebra_blinds' %}">Zebra Blinds</a>
+                    <a href="{% url 'wooden_blinds' %}">Wooden Blinds</a>
+                    <a href="{% url 'other_blinds' %}">More Collection</a>
+                </div>
+            </div>
+
+            <div>
+                <h3 class="footer-title">Contact Info</h3>
+                <div class="contact-item">
+                    <i class="fa-solid fa-location-dot"></i>
+                    <span>Delhi, India</span>
+                </div>
+                <div class="contact-item">
+                    <i class="fa-solid fa-phone"></i>
+                    <span>+91 9354467452</span>
+                </div>
+                <div class="contact-item">
+                    <i class="fa-solid fa-envelope"></i>
+                    <span>info.serinablinds@gmail.com</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer-bottom">
+        &copy; 2026 SERINA BLINDS. All Rights Reserved.
+    </div>
+</footer>
+
+<!-- Premium Fixed WhatsApp Engine Anchor -->
+<a href="https://wa.me/919354467452" class="whatsapp" target="_blank">
+    <i class="fab fa-whatsapp"></i>
+</a>
+
+<!-- Global Automation Execution script -->
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const navbar = document.getElementById('navbar');
+        const menuBtn = document.getElementById('menuBtn');
+        const navLinks = document.getElementById('navLinks');
+        const dropdownToggle = document.getElementById('dropdownToggle');
+        const dropdownContainer = document.getElementById('dropdownContainer');
+
+        // Dynamic Precision Scroller States
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 20) {
+                navbar.classList.add('scroll-shadow');
+            } else {
+                navbar.classList.remove('scroll-shadow');
+            }
+        });
+
+        // Toggle Canvas Drawer Controls 
+        menuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('mobile-active');
+            const menuIcon = menuBtn.querySelector('i');
+            if (navLinks.classList.contains('mobile-active')) {
+                menuIcon.className = 'fa-solid fa-xmark';
+            } else {
+                menuIcon.className = 'fa-solid fa-bars';
+            }
+        });
+
+        // Mobile Dropdown Stack Handlers
+        dropdownToggle.addEventListener('click', (e) => {
+            if (window.innerWidth <= 992) {
+                e.preventDefault();
+                dropdownContainer.classList.toggle('open-active');
+            }
+        });
+    });
+</script>
+
+{% block extra_js %}{% endblock %}
+
+</body>
+</html>

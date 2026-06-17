@@ -1,0 +1,129 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+Get Quote | Serina Blinds
+{% endblock %}
+
+{% block content %}
+
+<link rel="stylesheet" href="{% static 'css/quote.css' %}">
+
+<!-- HERO -->
+
+<section class="quote-hero">
+
+    <div class="hero-content">
+
+        <span>Free Consultation</span>
+
+        <h1>
+            Request A Free Quote
+        </h1>
+
+        <p>
+            Tell us about your requirements and our team
+            will provide the best blinds solution for you.
+        </p>
+
+    </div>
+
+</section>
+
+<!-- QUOTE FORM -->
+
+<section class="quote-section">
+
+    <div class="quote-info">
+
+        <h2>
+            Why Choose Serina Blinds?
+        </h2>
+
+        <div class="info-box">
+            <h3>✓ Premium Quality</h3>
+            <p>Luxury fabrics and modern designs.</p>
+        </div>
+
+        <div class="info-box">
+            <h3>✓ Custom Made</h3>
+            <p>Perfect fitting blinds for every window.</p>
+        </div>
+
+        <div class="info-box">
+            <h3>✓ Professional Installation</h3>
+            <p>Expert installation support.</p>
+        </div>
+
+        <div class="info-box">
+            <h3>✓ Affordable Pricing</h3>
+            <p>Premium products at competitive prices.</p>
+        </div>
+
+    </div>
+
+    <div class="quote-form">
+
+        <h2>Get Your Free Quote</h2>
+
+        <form method="POST">
+
+            {% csrf_token %}
+
+            <input type="text"
+                   name="name"
+                   placeholder="Full Name"
+                   required>
+
+            <input type="tel"
+                   name="phone"
+                   placeholder="Mobile Number"
+                   required>
+
+            <input type="email"
+                   name="email"
+                   placeholder="Email Address">
+
+            <select name="blind_type" required>
+
+                <option value="">
+                    Select Blind Type
+                </option>
+
+                <option>Roller Blinds</option>
+                <option>Zebra Blinds</option>
+                <option>Wooden Blinds</option>
+                <option>Vertical Blinds</option>
+                <option>Honeycomb Blinds</option>
+
+            </select>
+
+            <div class="size-box">
+
+                <input type="number"
+                       name="width"
+                       placeholder="Width (ft)">
+
+                <input type="number"
+                       name="height"
+                       placeholder="Height (ft)">
+
+            </div>
+
+            <textarea
+                name="message"
+                rows="5"
+                placeholder="Tell us about your requirements...">
+            </textarea>
+
+            <button type="submit">
+                Request Quote
+            </button>
+
+        </form>
+
+    </div>
+
+</section>
+
+{% endblock %}

@@ -1,0 +1,415 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}More Collections & Specialty Blinds | Serina Blinds - Premium Window Architecture{% endblock %}
+
+{% block extra_css %}
+<!-- Static asset configuration linked cleanly -->
+<link rel="stylesheet" href="{% static 'css/products.css' %}">
+
+<style>
+    /* ==========================================================================
+       ANIMATIONS CORE MODULE
+       ========================================================================== */
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(24px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .fade-up {
+        animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    .delay-1 { animation-delay: 0.1s; }
+    .delay-2 { animation-delay: 0.2s; }
+    .delay-3 { animation-delay: 0.3s; }
+
+    /* ==========================================================================
+       SPECIALTY COLLECTIONS HERO - CLEAN LIGHT THEME (NO BLACK BACKGROUND)
+       ========================================================================== */
+    .product-hero {
+        position: relative;
+        background: #ffffff; /* pure white structural background */
+        padding: 140px 0 60px;
+        text-align: center;
+        overflow: hidden;
+    }
+
+    /* Soft Blue Ambient Structural Glow */
+    .product-hero::before {
+        content: '';
+        position: absolute;
+        top: -10%; 
+        right: -5%; 
+        width: 500px; 
+        height: 500px;
+        background: #2563eb; /* Royal Blue */
+        filter: blur(150px);
+        opacity: 0.05;
+        pointer-events: none;
+        z-index: 1;
+    }
+
+    .product-bg-grid {
+        position: absolute;
+        inset: 0;
+        background-image: 
+            linear-gradient(rgba(37, 99, 235, 0.02) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(37, 99, 235, 0.02) 1px, transparent 1px);
+        background-size: 50px 50px;
+        mask-image: radial-gradient(circle at center, black, transparent 80%);
+        -webkit-mask-image: radial-gradient(circle at center, black, transparent 80%);
+        pointer-events: none;
+        z-index: 2;
+    }
+
+    .product-hero-content {
+        position: relative;
+        z-index: 5;
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 0 20px;
+    }
+
+    .product-hero-content span {
+        color: #2563eb; /* Blue Highlight Subtitle */
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        font-size: 13px;
+        display: block;
+        margin-bottom: 12px;
+    }
+
+    .product-hero-content h1 {
+        font-size: 48px;
+        font-weight: 800;
+        letter-spacing: -1px;
+        color: #0f172a; /* Deep Slate Bold Black Font */
+        margin-bottom: 20px;
+        line-height: 1.2;
+    }
+
+    .product-hero-content p {
+        font-size: 16px;
+        color: #475569; /* Balanced Deep Charcoal Body Text */
+        line-height: 1.65;
+    }
+
+    /* ==========================================================================
+       MORE COLLECTIONS GRID
+       ========================================================================== */
+    .collections-section {
+        padding: 60px 0 100px;
+        background: #ffffff;
+    }
+
+    .collection-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 80px;
+        align-items: center;
+        padding: 60px 0;
+    }
+
+    .collection-row:not(:last-child) {
+        border-bottom: 1px solid #e2e8f0;
+    }
+
+    /* Alternating structural flip matching premium visual patterns */
+    .collection-row:nth-child(even) {
+        direction: rtl;
+    }
+    .collection-row:nth-child(even) .collection-text {
+        direction: ltr;
+    }
+
+    .collection-img-frame {
+        border-radius: 24px;
+        overflow: hidden;
+        height: 420px;
+        box-shadow: 0 20px 40px rgba(15, 23, 42, 0.04);
+        border: 1px solid #e2e8f0;
+        background: #f8fafc;
+    }
+
+    .collection-img-frame img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .collection-row:hover .collection-img-frame img {
+        transform: scale(1.03);
+    }
+
+    .collection-text h2 {
+        font-size: 32px;
+        font-weight: 800;
+        color: #0f172a;
+        margin-bottom: 18px;
+        letter-spacing: -0.5px;
+    }
+
+    .collection-text p {
+        color: #475569;
+        font-size: 15px;
+        line-height: 1.75;
+        margin-bottom: 24px;
+    }
+
+    /* ==========================================================================
+       DYNAMIC BUTTONS LINK DESIGN SYSTEM (FIXED CSS HOOKS)
+       ========================================================================== */
+    .btn-specialty-primary {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #2563eb; /* High intensity Royal Blue Highlight */
+        color: #ffffff !important; /* Force Solid White Text */
+        font-size: 14px;
+        font-weight: 700;
+        padding: 14px 30px;
+        border-radius: 12px;
+        text-decoration: none !important;
+        box-shadow: 0 8px 20px -4px rgba(37, 99, 235, 0.3);
+        transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        border: 1px solid transparent;
+    }
+
+    .btn-specialty-primary:hover {
+        background-color: #1d4ed8;
+        transform: translateY(-2px);
+        box-shadow: 0 12px 24px -4px rgba(37, 99, 235, 0.45);
+        color: #ffffff !important;
+    }
+
+    .btn-specialty-outline {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        background-color: transparent;
+        color: #2563eb !important; /* Royal Blue Text Highlight */
+        font-size: 14px;
+        font-weight: 700;
+        padding: 13px 29px;
+        border-radius: 12px;
+        text-decoration: none !important;
+        border: 2px solid #2563eb; /* Blue Outer Ring */
+        transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .btn-specialty-outline:hover {
+        background-color: #2563eb;
+        color: #ffffff !important; /* Flips text color to white on hover */
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px -4px rgba(37, 99, 235, 0.25);
+    }
+
+    /* Technical Highlight Tags Container */
+    .tech-pill-container {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+        margin-bottom: 32px;
+    }
+
+    .tech-pill {
+        background: #f1f5f9;
+        border: 1px solid #e2e8f0;
+        color: #0f172a;
+        padding: 6px 14px;
+        font-size: 12px;
+        font-weight: 600;
+        border-radius: 50px;
+        letter-spacing: 0.2px;
+    }
+
+    /* ==========================================================================
+       ARCHITECTURAL CALL TO ACTION AREA (LIGHT MATTE CLEAN CARD)
+       ========================================================================== */
+    .collection-cta {
+        padding-bottom: 100px;
+    }
+
+    .cta-box {
+        background: #ffffff; /* pure white inside background */
+        border: 1px solid #e2e8f0;
+        color: #0f172a;
+        padding: 80px 40px;
+        border-radius: 32px;
+        text-align: center;
+        box-shadow: 0 20px 40px rgba(15, 23, 42, 0.04);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .cta-box::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background-image: 
+            linear-gradient(rgba(37, 99, 235, 0.01) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(37, 99, 235, 0.01) 1px, transparent 1px);
+        background-size: 40px 40px;
+        pointer-events: none;
+    }
+
+    .cta-box h2 {
+        font-size: 38px;
+        font-weight: 800;
+        margin-bottom: 16px;
+        color: #0f172a;
+        letter-spacing: -0.8px;
+        position: relative;
+        z-index: 2;
+    }
+
+    .cta-box p {
+        font-size: 16px;
+        color: #475569;
+        margin-bottom: 32px;
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+        line-height: 1.6;
+        position: relative;
+        z-index: 2;
+    }
+
+    .cta-box .btn-specialty-primary {
+        position: relative;
+        z-index: 2;
+    }
+
+    /* RESPONSIVE RENDERING OVERRIDES */
+    @media (max-width: 1024px) {
+        .collection-row {
+            grid-template-columns: 1fr;
+            gap: 44px;
+            padding: 40px 0;
+        }
+        .collection-row:nth-child(even) {
+            direction: ltr;
+        }
+        .product-hero-content h1 { font-size: 36px; }
+        .collection-img-frame { height: 320px; }
+        .collection-text h2 { font-size: 28px; }
+        .cta-box h2 { font-size: 28px; }
+        .cta-box { padding: 60px 24px; }
+    }
+    @media (max-width: 576px) {
+        .product-hero { padding: 120px 0 60px; }
+        .collection-img-frame { height: 260px; }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+
+    <!-- PREMIUM HERO LAYOUT -->
+    <section class="product-hero">
+        <div class="product-bg-grid"></div>
+        <div class="container">
+            <div class="product-hero-content fade-up">
+                <span>The Extended Portfolio</span>
+                <h1>Specialist Architectural Collections</h1>
+                <p>Beyond our foundational profiles, discover engineered solutions tailor-made for expansive corporate window expanses, challenging high-exposure environments, and comprehensive climate regulation systems.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ALTERNATING PREMIUM REVEAL BLOCK CONTAINER -->
+    <section class="collections-section">
+        <div class="container">
+
+            <!-- Category 1: Vertical Blinds -->
+            <div class="collection-row">
+                <div class="collection-img-frame fade-up">
+                    <img src="https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=800&q=80" alt="Serina Premium Vertical Blinds">
+                </div>
+                <div class="collection-text fade-up delay-1">
+                    <h2>Premium Vertical Blinds</h2>
+                    <p>Designed specifically for large corporate floor-to-ceiling glass systems and extensive workplace spatial partitions. The clean vertical louvers rotate smoothly up to 180 degrees, allowing precise solar manipulation that reduces screen glare while preserving functional perimeter privacy.</p>
+                    <div class="tech-pill-container">
+                        <span class="tech-pill">180° Louver Rotation</span>
+                        <span class="tech-pill">High-Span Architecture</span>
+                        <span class="tech-pill">Aluminium Tracking</span>
+                    </div>
+                    <a href="{% url 'get_quote' %}" class="btn-specialty-outline">Enquire Profile</a>
+                </div>
+            </div>
+
+            <!-- Category 2: Honeycomb / Cellular Blinds -->
+            <div class="collection-row">
+                <div class="collection-img-frame fade-up">
+                    <img src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=800&q=80" alt="Serina Cellular Honeycomb Blinds">
+                </div>
+                <div class="collection-text fade-up delay-1">
+                    <h2>Cellular Honeycomb Blinds</h2>
+                    <p>Engineered for advanced thermal isolation and acoustic dampening. The geometric cellular structures form static air pockets that act as a barrier against seasonal outdoor temperatures and break down reflective room echoes. An elegant solution for executive residential suites and multimedia rooms.</p>
+                    <div class="tech-pill-container">
+                        <span class="tech-pill">Thermal Insulation</span>
+                        <span class="tech-pill">Acoustic Noise Dampening</span>
+                        <span class="tech-pill">Cordless Safety Profiles</span>
+                    </div>
+                    <a href="{% url 'get_quote' %}" class="btn-specialty-outline">Enquire Profile</a>
+                </div>
+            </div>
+
+            <!-- Category 3: Outdoor / Monsoon Blinds -->
+            <div class="collection-row">
+                <div class="collection-img-frame fade-up">
+                    <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80" alt="Serina Monsoon Balcony Blinds">
+                </div>
+                <div class="collection-text fade-up delay-1">
+                    <h2>Monsoon & Outdoor Protection</h2>
+                    <p>A rugged, premium installation for exterior balconies, alfresco dining areas, and semi-open terraces. Utilizing heavy-gauge scratch-resistant clear PVC combined with solid high-tension side cable guides, these systems are built to withstand high wind velocities and prevent downpour penetration entirely.</p>
+                    <div class="tech-pill-container">
+                        <span class="tech-pill">100% Waterproof PVC</span>
+                        <span class="tech-pill">High-Wind Tension Cables</span>
+                        <span class="tech-pill">Scratch-Resistant Treatment</span>
+                    </div>
+                    <a href="{% url 'get_quote' %}" class="btn-specialty-outline">Enquire Profile</a>
+                </div>
+            </div>
+
+            <!-- Category 4: Motorized Smart Blinds Automation -->
+            <div class="collection-row">
+                <div class="collection-img-frame fade-up">
+                    <img src="https://images.unsplash.com/photo-1617806118233-18e1db207f62?auto=format&fit=crop&w=800&q=80" alt="Serina Somfy Smart Motorized Blinds">
+                </div>
+                <div class="collection-text fade-up delay-1">
+                    <h2>Automated Smart Systems</h2>
+                    <p>Transform your environment with silent precision automation. Our collection seamlessly integrates with automated multi-channel remotes, specialized wall pads, and native smartphone apps. Effortlessly sync with smart assistants like Google Home or Amazon Alexa for automated schedule tracking and voice command control.</p>
+                    <div class="tech-pill-container">
+                        <span class="tech-pill">Smart Ecosystem Integration</span>
+                        <span class="tech-pill">Silent Motor Mechanics</span>
+                        <span class="tech-pill">Custom Schedule Sync</span>
+                    </div>
+                    <a href="{% url 'get_quote' %}" class="btn-specialty-primary">Configure Automation</a>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ARCHITECTURAL CTA SECTION -->
+    <div class="container">
+        <section class="collection-cta">
+            <div class="cta-box fade-up">
+                <h2>Ready to Blueprint Your Specifications?</h2>
+                <p>Our dedicated structural estimators are ready to visit your location equipped with full architectural material sample decks and laser diagnostic equipment for immaculate measurements.</p>
+                <a href="{% url 'get_quote' %}" class="btn-specialty-primary">Request Free Estimate <i class="fa-solid fa-arrow-right" style="margin-left: 10px;"></i></a>
+            </div>
+        </section>
+    </div>
+
+{% endblock %}

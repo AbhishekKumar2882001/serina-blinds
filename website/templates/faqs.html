@@ -1,0 +1,395 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Frequently Asked Questions | Serina Blinds{% endblock %}
+
+{% block extra_css %}
+<!-- Base static asset link kept safe -->
+<link rel="stylesheet" href="{% static 'css/faqs.css' %}">
+
+<style>
+    /* ==========================================================================
+       FAQ PAGE - MINIMALIST ARCHITECTURAL DESIGN SYSTEM (TESLA SYNCED SYSTEM)
+       ========================================================================== */
+    
+    /* Clean Luxury Hero Context Matching the Tesla Structural Layout */
+    .faq-hero-section {
+        background: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.96)), 
+                    url('{% static "images/about-hero-bg.jpg" %}') no-repeat center center/cover;
+        min-height: 45vh;
+        display: flex;
+        align-items: center;
+        color: var(--tesla-black);
+        padding: 120px 0 50px;
+        position: relative;
+    }
+
+    /* Geometric Blueprint Mesh Overlay */
+    .faq-hero-section::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background-image: 
+            linear-gradient(rgba(62, 106, 225, 0.02) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(62, 106, 225, 0.02) 1px, transparent 1px);
+        background-size: 40px 40px;
+        mask-image: radial-gradient(circle at center, black, transparent 85%);
+        pointer-events: none;
+    }
+
+    .faq-hero-content {
+        position: relative;
+        z-index: 5;
+        max-width: 800px;
+    }
+
+    .faq-hero-content span {
+        color: var(--tesla-accent);
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        font-size: 12px;
+        display: block;
+        margin-bottom: 12px;
+    }
+
+    .faq-hero-content p {
+        font-size: 16px;
+        color: var(--tesla-grey-muted);
+        line-height: 1.6;
+        margin-top: 16px;
+    }
+
+    /* ==========================================================================
+       INTERACTIVE ACCORDION STRUCTURE (PURE MINIMAL SURFACES)
+       ========================================================================== */
+    .faq-main-wrapper {
+        padding: 60px 0 80px;
+        background: #fbfbfd;
+    }
+
+    .faq-master-container {
+        max-width: 850px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+    }
+
+    .faq-accordion-item {
+        background: var(--tesla-white);
+        border: 1px solid var(--tesla-border);
+        border-radius: 12px;
+        overflow: hidden;
+        transition: var(--tesla-transition);
+    }
+
+    /* Hover Interaction State */
+    .faq-accordion-item:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.02);
+        border-color: rgba(62, 106, 225, 0.2);
+    }
+
+    /* Active Highlight State aligned to Tesla Accent */
+    .faq-accordion-item.active {
+        border-color: var(--tesla-accent);
+        box-shadow: 0 12px 30px rgba(62, 106, 225, 0.05);
+    }
+
+    .faq-item-header {
+        padding: 22px 28px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        cursor: pointer;
+        font-weight: 500;
+        font-size: 16px;
+        color: var(--tesla-black);
+        user-select: none;
+        transition: color 0.3s ease;
+    }
+
+    .faq-accordion-item.active .faq-item-header {
+        color: var(--tesla-accent);
+    }
+
+    /* Arrow Rotational Metrics */
+    .faq-item-header i {
+        color: var(--tesla-grey-muted);
+        font-size: 12px;
+        transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), color 0.3s;
+    }
+
+    .faq-accordion-item.active .faq-item-header i {
+        transform: rotate(180deg);
+        color: var(--tesla-accent);
+    }
+
+    /* Smooth Height Transition Logic */
+    .faq-item-body {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        background: transparent;
+    }
+
+    .faq-item-body-content {
+        padding: 0 28px 22px 28px;
+        color: var(--tesla-grey-muted);
+        font-size: 14.5px;
+        line-height: 1.65;
+        border-top: 1px solid var(--tesla-border);
+        padding-top: 14px;
+    }
+
+    /* ==========================================================================
+       ENGAGEMENT CTA BOX (MATCHED TO CORE STRUCTURAL CARDS)
+       ========================================================================== */
+    .faq-cta-wrapper {
+        padding-bottom: 80px;
+        background: #fbfbfd;
+    }
+
+    .faq-cta-card {
+        background: var(--tesla-black);
+        border: 1px solid var(--tesla-border-white);
+        color: var(--tesla-white);
+        padding: 60px 40px;
+        border-radius: 20px;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .faq-cta-card::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background-image: linear-gradient(rgba(62, 106, 225, 0.03) 1px, transparent 1px), 
+                          linear-gradient(90deg, rgba(62, 106, 225, 0.03) 1px, transparent 1px);
+        background-size: 40px 40px;
+        pointer-events: none;
+    }
+
+    .faq-cta-card h2 {
+        font-size: 32px;
+        font-weight: 600;
+        margin-bottom: 14px;
+        letter-spacing: -0.5px;
+    }
+
+    .faq-cta-card p {
+        color: #a2a3a5;
+        font-size: 15px;
+        max-width: 540px;
+        margin: 0 auto 30px;
+        line-height: 1.6;
+    }
+
+    .faq-cta-btn {
+        width: auto; 
+        padding: 0 36px; 
+        height: 46px;
+        border-radius: 100px; 
+        text-decoration: none; 
+        display: inline-flex; 
+        align-items: center;
+        justify-content: center;
+        background: var(--tesla-white); 
+        color: var(--tesla-black); 
+        border: none; 
+        font-weight: 500;
+        font-size: 14px;
+        transition: var(--tesla-transition);
+    }
+
+    .faq-cta-btn:hover {
+        background: var(--tesla-accent);
+        color: var(--tesla-white);
+        box-shadow: 0 8px 24px rgba(62, 106, 225, 0.3);
+    }
+
+    .faq-cta-btn i {
+        margin-left: 8px;
+        font-size: 12px;
+    }
+
+    /* Responsive Adaptation */
+    @media (max-width: 768px) {
+        .faq-hero-section { padding: 100px 0 40px; }
+        .faq-item-header { padding: 18px 20px; font-size: 15px; }
+        .faq-item-body-content { padding: 0 20px 18px 20px; font-size: 14px; }
+        .faq-cta-card { padding: 40px 20px; }
+        .faq-cta-card h2 { font-size: 24px; }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+
+    <!-- HERO DISPLAY BLOCK -->
+    <section class="faq-hero-section">
+        <div class="container">
+            <div class="faq-hero-content container-animate">
+                <span>Support Intel Portal</span>
+                <h1 style="font-size: 42px; font-weight: 700; margin-top: 8px; line-height: 1.2;">Frequently Asked <br>Questions Framework.</h1>
+                <p>Have operational queries regarding technical window dimensions, custom fabric durability, order factory synchronization, or automation configurations? Browse through our verified architect logs.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- INTERACTIVE ACCORDION AREA -->
+    <section class="faq-main-wrapper">
+        <div class="container">
+            <div class="faq-master-container container-animate">
+
+                <!-- Question 1 -->
+                <div class="faq-accordion-item">
+                    <div class="faq-item-header">
+                        <span>1. What are the pricing calculation models for custom window blinds?</span>
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-item-body">
+                        <div class="faq-item-body-content">
+                            The actual cost of our custom blinds depends on the square footage of your window structure (Width x Height) and your chosen fabric catalog variant (such as standard translucent, thermal protection weave, or heavy-duty solid blackout layers). Our design specialists will provide a fully transparent, detailed estimation customized for your space during your doorstep evaluation session.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question 2 -->
+                <div class="faq-accordion-item">
+                    <div class="faq-item-header">
+                        <span>2. Do you offer free physical measurements and doorstep consultation?</span>
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-item-body">
+                        <div class="faq-item-body-content">
+                            Yes, absolutely! Our engineering team conducts doorstep site visits across Delhi, Gurgaon, and Noida with zero consultation fees and zero service charges. Our experts utilize professional laser-measurement devices to ensure absolute accuracy with zero-millimeter deviation errors. Additionally, you can inspect real fabric catalogs and premium shade swatches in person during the visit.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question 3 -->
+                <div class="faq-accordion-item">
+                    <div class="faq-item-header">
+                        <span>3. What is the standard duration required from measurement to final installation?</span>
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-item-body">
+                        <div class="faq-item-body-content">
+                            Once your finalized profile dimensions and fabric configurations are selected, the order details are immediately synced with our modern factory manufacturing department for automated custom processing. For all standard blind profiles, production and perfect deployment setup are seamlessly executed within 3 to 5 operational working days.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question 4 -->
+                <div class="faq-accordion-item">
+                    <div class="faq-item-header">
+                        <span>4. What type of onsite cover warranty do you supply on mechanism gears?</span>
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-item-body">
+                        <div class="faq-item-body-content">
+                            Serina Blinds provides a comprehensive 1 to 3-year absolute onsite component replacement warranty covering all friction elements, heavy-duty roller control clutches, metallic mounting brackets, and automated silent motors. If any component fails to operate smoothly during the deployment cycle, our support technician will visit your site to deliver immediate rectifying assistance at no extra cost.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question 5 -->
+                <div class="faq-accordion-item">
+                    <div class="faq-item-header">
+                        <span>5. Are these window fabrics dust-repellent and safe for home installation?</span>
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-item-body">
+                        <div class="faq-item-body-content">
+                            Yes, our premium polyester weaves and glassfiber blind structures are micro-engineered with advanced anti-static coatings that actively prevent dust, moisture, or smoke particles from settling on the surfaces. Maintenance is incredibly simple—you can maintain their pristine condition and extend their lifecycle easily by giving the linear surfaces a smooth wipe-down using a damp microfiber cloth.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question 6 -->
+                <div class="faq-accordion-item">
+                    <div class="faq-item-header">
+                        <span>6. Can we upgrade these custom blinds into Alexa or smartphone control automation?</span>
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-item-body">
+                        <div class="faq-item-body-content">
+                            All of our custom Roller Blinds and Zebra Blinds profiles are fully upgradable with advanced automated silent gear tracking controllers. We implement premium smart-integrated motors that can be managed seamlessly via multi-channel RF remotes, dedicated iOS/Android smartphone applications, or smart home ecosystems including Google Assistant and Amazon Alexa voice commands.
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ENGAGEMENT CTA AREA -->
+    <section class="faq-cta-wrapper">
+        <div class="container">
+            <div class="faq-cta-card container-animate">
+                <div>
+                    <h2>Still Have Unresolved Layout Questions?</h2>
+                    <p>Don't hesitate to interact with our senior field architecture experts directly. Let us draft your layout optimization framework mapping today.</p>
+                    <a href="{% url 'contact' %}" class="faq-cta-btn">
+                        Connect With Engineers <i class="fa-solid fa-headset"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}
+
+{% block extra_js %}
+<!-- Keep standard source loader safe -->
+<script src="{% static 'js/faqs.js' %}"></script>
+
+<script>
+    // Smooth Height Transition Engine with Multi-Open Safety Setup
+    document.addEventListener("DOMContentLoaded", () => {
+        const accordionHeaders = document.querySelectorAll(".faq-item-header");
+
+        accordionHeaders.forEach(header => {
+            header.addEventListener("click", () => {
+                const itemBlock = header.parentElement;
+                const bodyBlock = itemBlock.querySelector(".faq-item-body");
+
+                if (itemBlock.classList.contains("active")) {
+                    itemBlock.classList.remove("active");
+                    bodyBlock.style.maxHeight = null;
+                } else {
+                    // Close other items for premium smooth transition workflow
+                    document.querySelectorAll(".faq-accordion-item").forEach(item => {
+                        item.classList.remove("active");
+                        item.querySelector(".faq-item-body").style.maxHeight = null;
+                    });
+
+                    itemBlock.classList.add("active");
+                    bodyBlock.style.maxHeight = bodyBlock.scrollHeight + "px";
+                }
+            });
+        });
+
+        // Initialize Scroll animations injected from Home/About Engine framework
+        if (typeof initScrollAnimations === 'function') {
+            initScrollAnimations();
+        } else {
+            // Fallback layout activation handler if wrapper standalone execution occurs
+            const animatedContainers = document.querySelectorAll('.container-animate');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animated');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.15 });
+            
+            animatedContainers.forEach(container => observer.observe(container));
+        }
+    });
+</script>
+{% endblock %}

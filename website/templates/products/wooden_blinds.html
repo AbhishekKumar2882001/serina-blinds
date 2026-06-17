@@ -1,0 +1,461 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Premium Wooden Blinds | Serina Blinds{% endblock %}
+
+{% block extra_css %}
+<style>
+    /* ==========================================================================
+       ANIMATIONS CORE MODULE
+       ========================================================================== */
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(24px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .fade-up {
+        animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    .delay-1 { animation-delay: 0.1s; }
+    .delay-2 { animation-delay: 0.2s; }
+    .delay-3 { animation-delay: 0.3s; }
+
+    /* ==========================================================================
+       PRODUCT DETAILS HERO SECTION (CLEAN WHITE LIGHT THEME)
+       ========================================================================== */
+    .product-hero {
+        position: relative;
+        background: #ffffff; /* Clean Fresh White Background */
+        padding: 160px 0 110px;
+        overflow: hidden;
+    }
+
+    /* Soft Royal Blue Ambient Glow Base */
+    .product-hero::before {
+        content: '';
+        position: absolute;
+        top: -10%; 
+        right: -5%; 
+        width: 600px; 
+        height: 600px;
+        background: #2563eb; /* Royal Blue Accent */
+        filter: blur(160px);
+        opacity: 0.06; /* Highly subtle blend */
+        pointer-events: none;
+        z-index: 1;
+    }
+
+    .product-bg-grid {
+        position: absolute;
+        inset: 0;
+        background-image: 
+            linear-gradient(rgba(37, 99, 235, 0.03) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(37, 99, 235, 0.03) 1px, transparent 1px);
+        background-size: 60px 60px;
+        mask-image: linear-gradient(to bottom, white 60%, transparent);
+        -webkit-mask-image: linear-gradient(to bottom, white 60%, transparent);
+        z-index: 2;
+    }
+
+    .product-hero-grid {
+        display: grid;
+        grid-template-columns: 1.1fr 0.9fr;
+        gap: 60px;
+        align-items: center;
+        position: relative;
+        z-index: 5;
+    }
+
+    .product-hero-content h1 {
+        font-size: 54px;
+        font-weight: 800;
+        color: #0f172a; /* Deep Slate Bold Black Font */
+        margin-bottom: 24px;
+        letter-spacing: -1.5px;
+        line-height: 1.15;
+    }
+
+    .product-hero-content p {
+        font-size: 18px;
+        color: #475569; /* Balanced Deep Charcoal Body Text */
+        line-height: 1.8;
+        margin-bottom: 36px;
+    }
+
+    /* Link CSS Styling Refined */
+    .btn-product-cta {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #2563eb; /* High-intensity Royal Blue Highlight */
+        color: #ffffff !important; /* Force Solid White Text */
+        font-size: 16px;
+        font-weight: 700;
+        padding: 16px 36px;
+        border-radius: 14px;
+        text-decoration: none !important;
+        box-shadow: 0 10px 25px -5px rgba(37, 99, 235, 0.3);
+        transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .btn-product-cta:hover {
+        background-color: #1d4ed8; /* Deeper Royal Blue on Hover */
+        transform: translateY(-2px);
+        box-shadow: 0 15px 30px -5px rgba(37, 99, 235, 0.45);
+        color: #ffffff !important;
+    }
+
+    /* Visual Showcase Frame */
+    .product-showcase-frame {
+        border-radius: 28px;
+        overflow: hidden;
+        border: 1px solid rgba(15, 23, 42, 0.08);
+        box-shadow: 0 25px 50px -12px rgba(15, 23, 42, 0.12);
+        height: 420px;
+        transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .product-showcase-frame:hover {
+        transform: scale(1.015);
+    }
+
+    .product-showcase-frame img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    /* ==========================================================================
+       SPECIFICATIONS SECTION
+       ========================================================================== */
+    .specs-section {
+        padding: 120px 0;
+        background: #ffffff;
+    }
+
+    .specs-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 70px;
+        align-items: flex-start;
+    }
+
+    .specs-details h2 {
+        font-size: 38px;
+        font-weight: 800;
+        color: #0f172a; /* Deep Slate Font */
+        margin-bottom: 24px;
+        letter-spacing: -1px;
+        line-height: 1.2;
+    }
+
+    .specs-details p {
+        color: #475569;
+        font-size: 16px;
+        line-height: 1.8;
+        margin-bottom: 25px;
+    }
+
+    .specs-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 15px;
+    }
+
+    .specs-table tr {
+        border-bottom: 1px solid #e2e8f0;
+    }
+
+    .specs-table tr:hover {
+        background-color: rgba(37, 99, 235, 0.02);
+    }
+
+    .specs-table td {
+        padding: 18px 8px;
+        font-size: 15px;
+        color: #0f172a;
+        line-height: 1.5;
+    }
+
+    .specs-table td:first-child {
+        font-weight: 700;
+        color: #2563eb; /* Highlight Blue for Parameters */
+        width: 35%;
+    }
+
+    /* ==========================================================================
+       MATERIAL FINISHES SHOWCASE
+       ========================================================================== */
+    .fabric-showcase {
+        padding: 100px 0 130px;
+        background: #f8fafc; /* Crisp Soft Off-White */
+        border-top: 1px solid #e2e8f0;
+        border-bottom: 1px solid #e2e8f0;
+    }
+
+    .section-title span {
+        display: block;
+        font-size: 14px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        color: #2563eb; /* Blue Highlight Subtitle */
+        margin-bottom: 12px;
+    }
+
+    .section-title h2 {
+        font-size: 36px;
+        font-weight: 800;
+        color: #0f172a;
+    }
+
+    .fabric-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 30px;
+        margin-top: 60px;
+    }
+
+    .fabric-card {
+        background: #ffffff;
+        border: 1px solid #e2e8f0;
+        border-radius: 24px;
+        padding: 35px;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.01);
+        transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease, border-color 0.3s ease;
+    }
+
+    .fabric-card:hover {
+        transform: translateY(-8px);
+        border-color: rgba(37, 99, 235, 0.25);
+        box-shadow: 0 20px 40px -15px rgba(15, 23, 42, 0.08);
+    }
+
+    .fabric-icon {
+        width: 60px;
+        height: 60px;
+        background: #eff6ff;
+        color: #2563eb; /* Blue Icon Accent */
+        border-radius: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 24px;
+        margin-bottom: 24px;
+    }
+
+    .fabric-card h3 {
+        font-size: 21px;
+        font-weight: 700;
+        margin-bottom: 12px;
+        color: #0f172a;
+    }
+
+    .fabric-card p {
+        color: #475569;
+        font-size: 15px;
+        line-height: 1.65;
+    }
+
+    /* ==========================================================================
+       CTA BLOCK (CLEAN CARD ARCHITECTURE)
+       ========================================================================== */
+    .product-cta {
+        padding: 120px 0;
+    }
+
+    .cta-box {
+        background: #ffffff; /* Removed Black Background */
+        color: #0f172a;
+        padding: 90px 60px;
+        border-radius: 40px;
+        text-align: center;
+        border: 1px solid #0b0c0d;
+        box-shadow: 0 30px 60px -15px rgba(15, 23, 42, 0.06);
+        position: relative;
+        overflow: hidden;
+    }
+
+    /* Soft structural glow behind cta */
+    .cta-box::before {
+        content: '';
+        position: absolute;
+        bottom: -50%;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 400px;
+        height: 400px;
+        background: #2563eb;
+        filter: blur(130px);
+        opacity: 0.05;
+        pointer-events: none;
+    }
+
+    .cta-box h2 {
+        font-size: 46px;
+        font-weight: 800;
+        margin-bottom: 20px;
+        color: #0f172a;
+        letter-spacing: -1px;
+    }
+
+    .cta-box p {
+        font-size: 19px;
+        color: #475569;
+        margin-bottom: 40px;
+        max-width: 650px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    /* ==========================================================================
+       RESPONSIVE MEDIA QUERIES
+       ========================================================================== */
+    @media (max-width: 992px) {
+        .product-hero {
+            padding: 120px 0 80px;
+        }
+        .product-hero-grid, .specs-grid {
+            grid-template-columns: 1fr;
+            gap: 50px;
+        }
+        .product-hero-content {
+            text-align: center;
+        }
+        .product-hero-content h1 {
+            font-size: 42px;
+        }
+        .product-showcase-frame {
+            height: 340px;
+            max-width: 600px;
+            margin: 0 auto;
+            width: 100%;
+        }
+        .specs-section, .product-cta {
+            padding: 80px 0;
+        }
+        .cta-box {
+            padding: 60px 30px;
+        }
+        .cta-box h2 {
+            font-size: 32px;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+
+    <!-- PRODUCT HERO -->
+    <section class="product-hero">
+        <div class="product-bg-grid"></div>
+        <div class="container">
+            <div class="product-hero-grid">
+                
+                <div class="product-hero-content fade-up">
+                    <h1>Bespoke Hardwood Wooden Blinds</h1>
+                    <p>Bring natural elegance and unmatched corporate stature to your windows. Our luxury wooden Venetian blinds are crafted from authentic, high-grade wood slats, adding a warm, majestic touch to executive offices and premium living spaces alike.</p>
+                    <a href="{% url 'get_quote' %}" class="btn-product-cta">
+                        Book Free Laser Measurement <i class="fa-solid fa-ruler-combined" style="margin-left: 10px;"></i>
+                    </a>
+                </div>
+
+                <div class="product-showcase-frame fade-up delay-1">
+                    <img src="{% static 'images/products/wooden-blinds.jpg' %}" alt="Serina Executive Wooden Blind Installation">
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ARCHITECTURAL SPECIFICATIONS -->
+    <section class="specs-section">
+        <div class="container">
+            <div class="specs-grid">
+                
+                <div class="specs-details fade-up">
+                    <h2>Natural Craftsmanship & Precise Slat Control</h2>
+                    <p>Serina Wooden Blinds are engineered from genuine, lightweight premium timber—such as optimized kiln-dried Basswood—to completely eliminate the risk of warping and bending. Their horizontal slats feature a heavy-duty 180-degree cord rotation mechanism, allowing you to perfectly balance outdoor views and ambient lighting parameters with minimal effort.</p>
+                    <p>These classic profiles serve as absolute masterpieces for flush fitting across high-end bungalow study rooms, presidential executive desks, heritage lounges, and sophisticated reading libraries.</p>
+                </div>
+
+                <div class="specs-details fade-up delay-1">
+                    <table class="specs-table">
+                        <tr>
+                            <td>Material Timber</td>
+                            <td>Premium Kiln-Dried Natural Basswood / High-Grade Moisture-Checked Timber</td>
+                        </tr>
+                        <tr>
+                            <td>Slat Width Options</td>
+                            <td>Standard 35mm Sleek / 50mm Bold Executive Profiles</td>
+                        </tr>
+                        <tr>
+                            <td>Tilt Cord Mechanism</td>
+                            <td>Heavy-Duty Premium Brass Gear Box with Matching Dynamic Wooden Tassels</td>
+                        </tr>
+                        <tr>
+                            <td>Valance Option</td>
+                            <td>Matching Solid Wood fascia valance panel included to hide upper metallic headrails</td>
+                        </tr>
+                        <tr>
+                            <td>Thermal Insulation</td>
+                            <td>Excellent natural property to filter hot thermal radiation and absorb acoustic echoes</td>
+                        </tr>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- MATERIAL & OPACITY SHOWCASE -->
+    <section class="fabric-showcase">
+        <div class="container">
+            <div class="section-title fade-up" style="text-align: center; max-width: 600px; margin: 0 auto;">
+                <span>Natural Luxury Textures</span>
+                <h2>Premium Hardwood Finishes</h2>
+            </div>
+
+            <div class="fabric-grid">
+                
+                <div class="fabric-card fade-up delay-1">
+                    <div class="fabric-icon"><i class="fa-solid fa-tree"></i></div>
+                    <h3>Classic Natural Honey Oak</h3>
+                    <p>An authentic, organic warm wood tone that creates a flawless contrast and complements traditional wooden architecture or contemporary warm beige interiors.</p>
+                </div>
+
+                <div class="fabric-card fade-up delay-2">
+                    <div class="fabric-icon"><i class="fa-solid fa-feather-pointed"></i></div>
+                    <h3>Royal Charcoal Dark Walnut</h3>
+                    <p>A deep, rich tone engineered to bring solid dark aesthetic elegance and prestige to corporate conference desks, upscale lounges, and primary bedrooms.</p>
+                </div>
+
+                <div class="fabric-card fade-up delay-3">
+                    <div class="fabric-icon"><i class="fa-solid fa-paint-roller"></i></div>
+                    <h3>Nordic Minimalist Pure Matte White</h3>
+                    <p>Premium Basswood grain textures finished with a smooth matte white coat. Perfect for pristine modern office spaces and ultra-chic Scandinavian interior design concepts.</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- PRODUCT CTA -->
+    <div class="container">
+        <section class="product-cta fade-up">
+            <div class="cta-box">
+                <h2>Upgrade Your Windows to Absolute Luxury</h2>
+                <p>Our design specialists are ready to visit your doorstep with complete material catalogs and physical swatches for a zero-cost assessment.</p>
+                <a href="{% url 'get_quote' %}" class="btn-product-cta">Request Free Estimate <i class="fa-solid fa-arrow-right" style="margin-left: 10px;"></i></a>
+            </div>
+        </section>
+    </div>
+
+{% endblock %}

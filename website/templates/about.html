@@ -1,0 +1,589 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}About Us | Serina Blinds - Premium Window Architecture{% endblock %}
+
+{% block extra_css %}
+<style>
+    /* ==========================================================================
+       ABOUT PAGE - INTEGRATED DESIGN SYSTEM (MATCHED TO HOME THEME)
+       ========================================================================== */
+    
+    :root {
+        --tesla-black: #171a20;
+        --tesla-white: #ffffff;
+        --tesla-grey-dark: #393c41;
+        --tesla-grey-light: #f4f4f4;
+        --tesla-grey-muted: #5c5e62;
+        --tesla-accent: #3e6ae1; /* Serina Premium Blue Highlight */
+        --tesla-border: rgba(0, 0, 0, 0.08);
+        --tesla-font: 'Gotham', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        --tesla-transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* Core Animation Components */
+    .container-animate .fade-up {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), 
+                    transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .container-animate.animated .fade-up {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .container-animate.animated .fade-up:nth-child(2) { transition-delay: 0.1s; }
+    .container-animate.animated .fade-up:nth-child(3) { transition-delay: 0.2s; }
+
+    /* Section Utilities */
+    .section-padding {
+        padding: 100px 0;
+    }
+    .bg-about-light {
+        background-color: var(--tesla-grey-light) !important;
+    }
+    .section-title {
+        text-align: center;
+        margin-bottom: 60px;
+    }
+    .section-title span {
+        font-family: var(--tesla-font);
+        font-size: 13px;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        color: var(--tesla-accent); /* HIGHLIGHT: Blue Category Tracker */
+        display: block;
+        margin-bottom: 10px;
+        font-weight: 600;
+    }
+    .section-title h2 {
+        font-family: var(--tesla-font);
+        font-size: 32px;
+        font-weight: 500;
+        color: var(--tesla-black);
+        letter-spacing: -0.5px;
+    }
+
+    /* Hero Context Architecture Look */
+    .about-hero-section {
+        background: linear-gradient(rgba(255, 255, 255, 0.90), rgba(255, 255, 255, 0.96)), 
+                    url('{% static "images/about-hero-bg.jpg" %}') no-repeat center center/cover;
+        min-height: 70vh;
+        display: flex;
+        align-items: center;
+        color: var(--tesla-black);
+        padding: 140px 0 80px;
+        position: relative;
+    }
+
+    .about-hero-section::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background-image: 
+            linear-gradient(rgba(62, 106, 225, 0.02) 1px, transparent 1px), /* HIGHLIGHT: Subtle Blue Grid */
+            linear-gradient(90deg, rgba(62, 106, 225, 0.02) 1px, transparent 1px);
+        background-size: 50px 50px;
+        mask-image: radial-gradient(circle at center, black, transparent 80%);
+        pointer-events: none;
+    }
+
+    .about-hero-grid {
+        display: grid;
+        grid-template-columns: 1.1fr 0.9fr;
+        gap: 64px;
+        align-items: center;
+        position: relative;
+        z-index: 5;
+    }
+
+    /* About Inline Feature Group */
+    .about-feature-tagline {
+        display: flex;
+        gap: 32px;
+        margin-bottom: 40px;
+        border-left: 2px solid var(--tesla-accent); /* HIGHLIGHT: Blue Vertical Accent Line */
+        padding-left: 20px;
+    }
+
+    .about-feature-tagline h4 {
+        font-family: var(--tesla-font);
+        font-size: 16px;
+        font-weight: 600;
+        color: var(--tesla-black);
+        margin-bottom: 4px;
+    }
+
+    .about-feature-tagline p {
+        font-family: var(--tesla-font);
+        font-size: 13px;
+        color: var(--tesla-grey-muted);
+        margin: 0;
+    }
+
+    /* Premium Custom Dynamic Buttons */
+    .about-btn-action {
+        font-family: var(--tesla-font) !important;
+        display: inline-flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        width: auto !important; 
+        min-width: 220px;
+        height: 46px !important;
+        padding: 0 32px !important;
+        border-radius: 100px !important; 
+        font-size: 14px !important;
+        font-weight: 500 !important;
+        text-decoration: none !important;
+        transition: var(--tesla-transition) !important;
+        background-color: var(--tesla-accent) !important; /* HIGHLIGHT: Solid Serina Blue Accent Button */
+        color: var(--tesla-white) !important;
+        border: none !important;
+        box-sizing: border-box !important;
+        box-shadow: 0 10px 20px rgba(62, 106, 225, 0.15);
+    }
+
+    .about-btn-action:hover {
+        background-color: #2b55c7 !important; /* Darker Blue on Hover */
+        color: var(--tesla-white) !important;
+        box-shadow: 0 15px 25px rgba(62, 106, 225, 0.25);
+    }
+
+    .about-btn-action i {
+        font-size: 11px;
+        transition: transform 0.3s ease;
+    }
+
+    .about-btn-action:hover i {
+        transform: translateX(4px);
+    }
+
+    /* Mac-style Interactive Info Matrix Card */
+    .info-matrix-card {
+        background: rgba(255, 255, 255, 0.7);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border: 1px solid rgba(255, 255, 255, 0.6);
+        padding: 40px;
+        border-radius: 24px;
+        box-shadow: 0 30px 60px rgba(0, 0, 0, 0.03);
+        transition: var(--tesla-transition);
+    }
+
+    .info-matrix-card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 40px 80px rgba(62, 106, 225, 0.06); /* HIGHLIGHT: Subtle blue glow on hover */
+    }
+
+    .matrix-row {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        padding: 20px 0;
+        border-bottom: 1px solid var(--tesla-border);
+    }
+
+    .matrix-row:last-child { border: none; padding-bottom: 0; }
+    .matrix-row:first-child { padding-top: 0; }
+
+    .matrix-icon-box {
+        width: 48px;
+        height: 48px;
+        border-radius: 12px;
+        background: rgba(62, 106, 225, 0.06); /* HIGHLIGHT: Pale Blue Icon Backdrop */
+        color: var(--tesla-accent); /* HIGHLIGHT: Sharp Blue Icon Tint */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 18px;
+        border: 1px solid rgba(62, 106, 225, 0.1);
+        transition: var(--tesla-transition);
+    }
+
+    .info-matrix-card:hover .matrix-icon-box {
+        background: var(--tesla-accent);
+        color: #ffffff;
+    }
+
+    .matrix-text h5 {
+        font-family: var(--tesla-font);
+        font-size: 16px;
+        font-weight: 600;
+        color: var(--tesla-black);
+        margin-bottom: 4px;
+    }
+
+    .matrix-text p {
+        font-family: var(--tesla-font);
+        font-size: 13px;
+        color: var(--tesla-grey-muted);
+        margin: 0;
+    }
+
+    /* Statistics Counter Section Framework */
+    .stats-section {
+        background: var(--tesla-white);
+        padding: 50px 40px;
+        border-radius: 0px; 
+        margin-top: 0px; 
+        position: relative;
+        z-index: 10;
+        border-bottom: 1px solid var(--tesla-border);
+    }
+
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 20px;
+        text-align: center;
+    }
+
+    .stat-item h3 {
+        font-family: var(--tesla-font);
+        font-size: 38px;
+        font-weight: 500;
+        color: var(--tesla-accent); /* HIGHLIGHT: Digital Dashboard Blue Numbers */
+        margin-bottom: 8px;
+    }
+
+    .stat-item p {
+        font-family: var(--tesla-font);
+        font-size: 13px;
+        color: var(--tesla-grey-muted);
+        margin: 0;
+        font-weight: 400;
+    }
+
+    /* Balanced Brand History Section */
+    .story-layout {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 80px;
+        align-items: center;
+    }
+
+    .story-frame {
+        position: relative;
+    }
+
+    .story-frame img {
+        width: 100%;
+        border-radius: 20px;
+        border: 1px solid var(--tesla-border);
+        box-shadow: 0 20px 40px rgba(0,0,0,0.02);
+    }
+
+    .story-stamp {
+        position: absolute;
+        bottom: -20px;
+        right: -20px;
+        background: var(--tesla-black);
+        color: #ffffff;
+        padding: 20px 28px;
+        border-radius: 14px;
+        font-weight: 700;
+        font-size: 13px;
+        letter-spacing: 2px;
+        box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        border-left: 3px solid var(--tesla-accent); /* HIGHLIGHT: Blue Stamp Tagline border */
+    }
+
+    .story-details span {
+        color: var(--tesla-accent); /* HIGHLIGHT: Section Indicator Tag */
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        font-size: 13px;
+        display: block;
+        margin-bottom: 12px;
+    }
+
+    .story-details h2 {
+        font-family: var(--tesla-font);
+        font-size: 38px;
+        font-weight: 500;
+        color: var(--tesla-black);
+        letter-spacing: -0.5px;
+        margin-bottom: 24px;
+        line-height: 1.2;
+    }
+
+    .story-details p {
+        font-family: var(--tesla-font);
+        color: var(--tesla-grey-muted);
+        font-size: 15px;
+        line-height: 1.65;
+        margin-bottom: 20px;
+    }
+
+    /* Minimal Clean Value Badges */
+    .value-tags-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+        margin-top: 32px;
+    }
+
+    .value-tag {
+        font-family: var(--tesla-font);
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 14px;
+        font-weight: 500;
+        color: var(--tesla-black);
+    }
+
+    .value-tag i {
+        color: var(--tesla-accent); /* HIGHLIGHT: Clean Check Icons Switched to Tech Blue */
+    }
+
+    /* About Engagement Block */
+    .about-cta-card {
+        background: var(--tesla-white);
+        border: 1px solid var(--tesla-border);
+        padding: 80px 40px;
+        border-radius: 16px;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .about-cta-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 4px;
+        background: var(--tesla-accent); /* HIGHLIGHT: Premium Linear Blue Top Border Accent */
+    }
+
+    .about-cta-card h2 {
+        font-family: var(--tesla-font);
+        font-size: 36px;
+        font-weight: 500;
+        color: var(--tesla-black);
+        letter-spacing: -0.5px;
+        margin-bottom: 16px;
+    }
+
+    .about-cta-card p {
+        font-family: var(--tesla-font);
+        color: var(--tesla-grey-muted);
+        font-size: 16px;
+        max-width: 580px;
+        margin: 0 auto 36px;
+        line-height: 1.6;
+    }
+
+    /* Responsive Adaptation for About Grid */
+    @media(max-width: 992px) {
+        .about-hero-grid, .story-layout {
+            grid-template-columns: 1fr;
+            gap: 48px;
+        }
+        .about-hero-section { padding: 120px 0 60px; }
+        .story-stamp { position: static; display: inline-block; margin-top: 16px; }
+        .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 30px;}
+    }
+    @media(max-width: 576px) {
+        .stats-grid { grid-template-columns: 1fr; }
+        .value-tags-grid { grid-template-columns: 1fr; }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+
+    <section class="about-hero-section">
+        <div class="container">
+            <div class="about-hero-grid container-animate">
+                <div class="hero-content">
+                    <div class="section-title" style="text-align: left; margin: 0 0 24px 0;">
+                        <span>The Future of Shading</span>
+                        <h1 style="margin-top: 8px; font-family: var(--tesla-font); font-size: 42px; font-weight: 500; color: var(--tesla-black);">Architectural Precision. <br>Lifestyle Perfection.</h1>
+                    </div>
+                    <p style="font-family: var(--tesla-font); font-size: 15px; color: var(--tesla-grey-muted); line-height: 1.6; margin-bottom: 30px;">Serina Blinds merges advanced structural craftsmanship with minimalist interior architecture. We don't just cover windows; we meticulously engineer light dynamics, privacy metrics, and thermal insulation for modern environments.</p>
+                    
+                    <div class="about-feature-tagline">
+                        <div>
+                            <h4>0mm Tolerance</h4>
+                            <p>Laser-guided structural customizations.</p>
+                        </div>
+                        <div>
+                            <h4>Smart Sync ready</h4>
+                            <p>Seamless automated multi-app systems.</p>
+                        </div>
+                    </div>
+
+                    <div class="hero-btns" style="display: flex; justify-content: flex-start;">
+                        <a href="{% url 'get_quote' %}" class="about-btn-action">
+                            Start Your Project <i class="fa-solid fa-chevron-right" style="margin-left: 10px; align-self: center;"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="fade-up">
+                    <div class="info-matrix-card">
+                        <div class="matrix-row">
+                            <div class="matrix-icon-box"><i class="fa-solid fa-microchip"></i></div>
+                            <div class="matrix-text">
+                                <h5>Silent Motion™ Hardware</h5>
+                                <p>Insulated tracking operating under a near-silent 32dB signature.</p>
+                            </div>
+                        </div>
+                        <div class="matrix-row">
+                            <div class="matrix-icon-box"><i class="fa-solid fa-leaf"></i></div>
+                            <div class="matrix-text">
+                                <h5>EcoShield™ Fabric Composites</h5>
+                                <p>Certified thermal layers optimizing climate control up to 40%.</p>
+                            </div>
+                        </div>
+                        <div class="matrix-row">
+                            <div class="matrix-icon-box"><i class="fa-solid fa-award"></i></div>
+                            <div class="matrix-text">
+                                <h5>5-Year Engineering Reliability</h5>
+                                <p>Complete onsite functional protection and structural warranty.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Counters Framework Base Tracker -->
+    <div class="container">
+        <section class="stats-section container-animate" id="statsSection">
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <h3 class="counter-value" data-target="5000">0</h3>
+                    <p>Luxury Homes</p>
+                </div>
+                <div class="stat-item">
+                    <h3 class="counter-value" data-target="1200">0</h3>
+                    <p>Corporate Sites</p>
+                </div>
+                <div class="stat-item">
+                    <h3 class="counter-value" data-target="150">0</h3>
+                    <p>Design Textures</p>
+                </div>
+                <div class="stat-item">
+                    <h3 class="counter-value" data-target="5">0</h3>
+                    <p>Global Rating</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- History Block Group -->
+    <section class="section-padding">
+        <div class="container">
+            <div class="story-layout container-animate">
+                <div class="story-frame fade-up">
+                    <img src="https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=800&q=80" alt="Serina Blinds Studio Layout">
+                    <div class="story-stamp">EST. 2015</div>
+                </div>
+                <div class="story-details fade-up">
+                    <span>Our Heritage</span>
+                    <h2>Redefining Technical Excellence for Openings</h2>
+                    <p>We launched with a singular core standard: to eliminate the layout friction and measurement tolerances typical in window styling. Serina Blinds treats windows as foundational structural components.</p>
+                    <p>By coordinating expert material weaving with micro-accurate alignment tools, we make sure every drop curve, fabric drape, and operational trace works seamlessly for years.</p>
+                    
+                    <div class="value-tags-grid">
+                        <div class="value-tag"><i class="fa-solid fa-circle-check"></i> German Core Assemblies</div>
+                        <div class="value-tag"><i class="fa-solid fa-circle-check"></i> Anti-Static Treatments</div>
+                        <div class="value-tag"><i class="fa-solid fa-circle-check"></i> UV Protection Layers</div>
+                        <div class="value-tag"><i class="fa-solid fa-circle-check"></i> Flame-Retardant Fabrics</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Bottom Trigger Call To Action -->
+    <section class="section-padding bg-about-light" style="padding-top: 60px;">
+        <div class="container">
+            <div class="about-cta-card container-animate">
+                <div class="fade-up">
+                    <h2>Experience the Serina Difference</h2>
+                    <p>Schedule an architectural site assessment. Our project consultants will manage configuration directly inside your room layout.</p>
+                    <a href="{% url 'get_quote' %}" class="about-btn-action">
+                        Request Site Visit <i class="fa-solid fa-location-dot" style="margin-left: 10px; align-self: center;"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Universal Core Engine Hook
+    const initScrollAnimations = () => {
+        const animatedContainers = document.querySelectorAll('.container-animate');
+        if(!animatedContainers.length) return;
+        
+        const observerOptions = {
+            root: null,
+            threshold: 0.15,
+            rootMargin: '0px 0px -40px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animated');
+                    if (entry.target.id === 'statsSection') {
+                        startPremiumCounters();
+                    }
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        animatedContainers.forEach(container => {
+            observer.observe(container);
+        });
+    };
+
+    // Eased Animation Value System Matrix 
+    const startPremiumCounters = () => {
+        const counters = document.querySelectorAll('.counter-value');
+        counters.forEach(counter => {
+            const target = parseFloat(counter.getAttribute('data-target'));
+            const duration = 1800; 
+            let startTimestamp = null;
+
+            const step = (timestamp) => {
+                if (!startTimestamp) startTimestamp = timestamp;
+                const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                const easeProgress = progress * (2 - progress);
+                const currentVal = Math.floor(easeProgress * target);
+
+                if (target === 5) {
+                    counter.innerText = currentVal + " ★";
+                } else {
+                    counter.innerText = currentVal.toLocaleString() + "+";
+                }
+
+                if (progress < 1) {
+                    window.requestAnimationFrame(step);
+                } else {
+                    counter.innerText = target === 5 ? "5 ★" : target.toLocaleString() + "+";
+                }
+            };
+
+            window.requestAnimationFrame(step);
+        });
+    };
+
+    document.addEventListener('DOMContentLoaded', () => {
+        initScrollAnimations();
+    });
+</script>
+{% endblock %}
