@@ -5,12 +5,71 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>{% block title %}Serina Blinds{% endblock %}</title>
+    <!-- Primary SEO Meta Tags -->
+    <title>{% block title %}Best Window Blinds in Delhi | Premium Wooden & Zebra Blinds - Serina Blinds{% endblock %}</title>
+    <meta name="description" content="{% block meta_description %}Serina Blinds offers premium window blinds solutions in Delhi, India. Explore our modern collection of Roller, Zebra, and Wooden Blinds tailored for home and office layout.{% endblock %}">
+    <meta name="keywords" content="window blinds Delhi, roller blinds, zebra blinds, wooden blinds India, office window blinds, premium blinds online, Serina Blinds">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="{{ request.build_absolute_uri }}">
 
-    <!-- Tesla Premium Fonts Definition -->
+    <!-- Open Graph / Facebook (Social SEO) -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="{% block og_title %}Premium Window Blinds Solutions | Serina Blinds{% endblock %}">
+    <meta property="og:description" content="Elevate your interiors with modern, high-quality customizable window blinds from Serina Blinds Delhi.">
+    <meta property="og:image" content="{% static 'images/products/fabi.jpg' %}">
+    <meta property="og:url" content="{{ request.build_absolute_uri }}">
+
+    <!-- Twitter SEO -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Premium Window Blinds Solutions | Serina Blinds">
+    <meta name="twitter:description" content="Elevate your interiors with modern, high-quality customizable window blinds from Serina Blinds Delhi.">
+
+    <!-- Fonts & Icons -->
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
-   <link rel="icon" href="{% static 'images/products/fabi.jpg' %}">
+    <link rel="icon" href="{% static 'images/products/fabi.jpg' %}">
+
+    <!-- Local Business Schema Markup (Google Search Engine Optimization) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "HomeGoodsStore",
+      "name": "Serina Blinds",
+      "image": "{% static 'images/products/fabi.jpg' %}",
+      "@id": "{{ request.build_absolute_uri }}",
+      "url": "{{ request.build_absolute_uri }}",
+      "telephone": "+919354467452",
+      "priceRange": "$$",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Delhi",
+        "addressCountry": "IN"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": "28.6139",
+        "longitude": "77.2090"
+      },
+      "openingHoursSpecification": {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": [
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday",
+          "Saturday"
+        ],
+        "opens": "09:00",
+        "closes": "20:00"
+      },
+      "sameAs": [
+        "https://www.instagram.com/serinablinds.india",
+        "https://youtube.com/@serinablindsindia"
+      ]
+    }
+    </script>
+
     <!-- Base Core Framework System Rules -->
     <style>
         /* ==========================================================================
@@ -75,15 +134,17 @@
             gap: 24px;
         }
 
-        .topbar-left span {
+        .topbar-left span, .topbar-left a {
             display: flex;
             align-items: center;
             gap: 6px;
             opacity: 0.8;
+            color: var(--tesla-white);
+            text-decoration: none;
             transition: var(--tesla-transition);
         }
 
-        .topbar-left span:hover {
+        .topbar-left a:hover {
             opacity: 1;
             color: #7fa1ff; /* BLUE TOUCHUP: Subtle premium glow top row info */
         }
@@ -137,7 +198,7 @@
             color: var(--tesla-accent); /* BLUE TOUCHUP: Icon transitioned into signature brand blue */
         }
 
-        .logo-text h2 {
+        .logo-text h1 {
             font-size: 18px;
             font-weight: 600;
             letter-spacing: 3px;
@@ -504,14 +565,14 @@
 <div class="topbar">
     <div class="container topbar-content">
         <div class="topbar-left">
-            <span>
-                <i class="fa-solid fa-phone"></i>
+            <a href="tel:+919354467452">
+                <i class="fa-solid fa-phone" aria-hidden="true"></i>
                 +91 9354467452
-            </span>
-            <span>
-                <i class="fa-solid fa-envelope"></i>
+            </a>
+            <a href="mailto:info.serinablinds@gmail.com">
+                <i class="fa-solid fa-envelope" aria-hidden="true"></i>
                 info.serinablinds@gmail.com
-            </span>
+            </a>
         </div>
         <div class="topbar-right">
             <span>Premium Window Blinds Solutions</span>
@@ -521,15 +582,15 @@
 
 <!-- Header Control Core Hub -->
 <header class="navbar" id="navbar">
-    <div class="container nav-wrapper">
+    <nav class="container nav-wrapper" aria-label="Main Navigation">
         
-        <!-- Logo Branding Wrapper -->
+        <!-- Logo Branding Wrapper (SEO Tag Optimization: h1 for Brand Structure) -->
         <a href="{% url 'home' %}" class="logo" style="text-decoration: none;">
             <div class="logo-icon">
-                <i class="fa-solid fa-window-maximize"></i>
+                <i class="fa-solid fa-window-maximize" aria-hidden="true"></i>
             </div>
             <div class="logo-text">
-                <h2>SERINA</h2>
+                <h1>SERINA</h1>
                 <span>BLINDS</span>
             </div>
         </a>
@@ -540,8 +601,8 @@
             <li><a href="{% url 'about' %}">About</a></li>
             
             <li class="dropdown" id="dropdownContainer">
-                <a href="#" class="dropdown-toggle" id="dropdownToggle">Products <i class="fa-solid fa-chevron-down" style="font-size: 11px;"></i></a>
-                <ul class="dropdown-menu">
+                <a href="#" class="dropdown-toggle" id="dropdownToggle" aria-haspopup="true" aria-expanded="false">Products <i class="fa-solid fa-chevron-down" style="font-size: 11px;" aria-hidden="true"></i></a>
+                <ul class="dropdown-menu" aria-label="Products Subsection">
                     <li><a href="{% url 'roller_blinds' %}">Roller Blinds</a></li>
                     <li><a href="{% url 'zebra_blinds' %}">Zebra Blinds</a></li>
                     <li><a href="{% url 'wooden_blinds' %}">Wooden Blinds</a></li>
@@ -558,17 +619,17 @@
         <div class="nav-actions">
             <a href="{% url 'get_quote' %}" class="btn btn-outline">Get Quote</a>
             <a href="tel:+919354467452" class="btn btn-primary">
-                <i class="fa-solid fa-phone"></i>
+                <i class="fa-solid fa-phone" aria-hidden="true"></i>
                 Call Now
             </a>
         </div>
 
         <!-- System Target Mobile Trigger -->
-        <div class="menu-btn" id="menuBtn">
-            <i class="fa-solid fa-bars"></i>
-        </div>
+        <button class="menu-btn" id="menuBtn" aria-label="Toggle Menu" style="background:none; border:none;">
+            <i class="fa-solid fa-bars" aria-hidden="true"></i>
+        </button>
 
-    </div>
+    </nav>
 </header>
 
 <!-- Child Dynamic Injection Viewport Template -->
@@ -589,15 +650,15 @@
                     and professional installation services.
                 </p>
                 <div class="social-icons">
-                    <a href="#"><i class="fab fa-facebook-f"></i></a>
-                    <a href="https://www.instagram.com/serinablinds.india" target="_blank"><i class="fab fa-instagram"></i></a>
-                    <a href="https://youtube.com/@serinablindsindia?si=UehvYsD3xs4aitDT" target="_blank"><i class="fab fa-youtube"></i></a>
-                    <a href="https://wa.me/919354467452" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f" aria-hidden="true"></i></a>
+                    <a href="https://www.instagram.com/serinablinds.india" target="_blank" rel="noopener" aria-label="Instagram"><i class="fab fa-instagram" aria-hidden="true"></i></a>
+                    <a href="https://youtube.com/@serinablindsindia?si=UehvYsD3xs4aitDT" target="_blank" rel="noopener" aria-label="YouTube"><i class="fab fa-youtube" aria-hidden="true"></i></a>
+                    <a href="https://wa.me/919354467452" target="_blank" rel="noopener" aria-label="WhatsApp"><i class="fab fa-whatsapp" aria-hidden="true"></i></a>
                 </div>
             </div>
 
             <div>
-                <h3 class="footer-title">Quick Links</h3>
+                <span class="footer-title" style="display:block;">Quick Links</span>
                 <div class="footer-links">
                     <a href="{% url 'home' %}">Home</a>
                     <a href="{% url 'about' %}">About Us</a>
@@ -608,7 +669,7 @@
             </div>
 
             <div>
-                <h3 class="footer-title">Our Products</h3>
+                <span class="footer-title" style="display:block;">Our Products</span>
                 <div class="footer-links">
                     <a href="{% url 'roller_blinds' %}">Roller Blinds</a>
                     <a href="{% url 'zebra_blinds' %}">Zebra Blinds</a>
@@ -618,18 +679,18 @@
             </div>
 
             <div>
-                <h3 class="footer-title">Contact Info</h3>
+                <span class="footer-title" style="display:block;">Contact Info</span>
                 <div class="contact-item">
-                    <i class="fa-solid fa-location-dot"></i>
+                    <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
                     <span>Delhi, India</span>
                 </div>
                 <div class="contact-item">
-                    <i class="fa-solid fa-phone"></i>
-                    <span>+91 9354467452</span>
+                    <i class="fa-solid fa-phone" aria-hidden="true"></i>
+                    <span><a href="tel:+919354467452" style="color:#a2a3a5; text-decoration:none;">+91 9354467452</a></span>
                 </div>
                 <div class="contact-item">
-                    <i class="fa-solid fa-envelope"></i>
-                    <span>info.serinablinds@gmail.com</span>
+                    <i class="fa-solid fa-envelope" aria-hidden="true"></i>
+                    <span><a href="mailto:info.serinablinds@gmail.com" style="color:#a2a3a5; text-decoration:none;">info.serinablinds@gmail.com</a></span>
                 </div>
             </div>
         </div>
@@ -641,8 +702,8 @@
 </footer>
 
 <!-- Premium Fixed WhatsApp Engine Anchor -->
-<a href="https://wa.me/919354467452" class="whatsapp" target="_blank">
-    <i class="fab fa-whatsapp"></i>
+<a href="https://wa.me/919354467452" class="whatsapp" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
+    <i class="fab fa-whatsapp" aria-hidden="true"></i>
 </a>
 
 <!-- Global Automation Execution script -->
@@ -669,8 +730,10 @@
             const menuIcon = menuBtn.querySelector('i');
             if (navLinks.classList.contains('mobile-active')) {
                 menuIcon.className = 'fa-solid fa-xmark';
+                menuBtn.setAttribute('aria-expanded', 'true');
             } else {
                 menuIcon.className = 'fa-solid fa-bars';
+                menuBtn.setAttribute('aria-expanded', 'false');
             }
         });
 
@@ -678,7 +741,8 @@
         dropdownToggle.addEventListener('click', (e) => {
             if (window.innerWidth <= 992) {
                 e.preventDefault();
-                dropdownContainer.classList.toggle('open-active');
+                const isActive = dropdownContainer.classList.toggle('open-active');
+                dropdownToggle.setAttribute('aria-expanded', isActive ? 'true' : 'false');
             }
         });
     });
